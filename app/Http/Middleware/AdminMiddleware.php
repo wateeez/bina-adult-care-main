@@ -27,7 +27,7 @@ class AdminMiddleware
             ]);
         }
 
-        if (Auth::check() && Auth::user()->admin) {
+        if (Auth::check() && Auth::user()->admin()->exists()) {
             return $next($request);
         }
 
@@ -36,7 +36,8 @@ class AdminMiddleware
             Log::warning('Admin authentication failed', [
                 'user' => Auth::user(),
                 'path' => $request->path(),
-                'ip' => $request->ip()
+                'ip' => $request->ip(),
+                'has_admin' => Auth::check() ? Auth::user()->admin()->exists() : false
             ]);
         }
 

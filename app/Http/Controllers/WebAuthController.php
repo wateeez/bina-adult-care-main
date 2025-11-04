@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use App\Models\User;
 use App\Models\UserAdmin;
 
@@ -29,10 +30,8 @@ class WebAuthController extends Controller
             if (Auth::attempt($credentials)) {
                 $user = Auth::user();
                 
-                // Check if user is an admin
-                $admin = UserAdmin::where('user_id', $user->id)->first();
-                
-                if (!$admin) {
+                // Check if user is an admin using the relationship
+                if (!$user->admin()->exists()) {
                     Auth::logout();
                     return back()
                         ->withInput($request->only('email'))
@@ -48,7 +47,7 @@ class WebAuthController extends Controller
                 ->withErrors(['email' => 'Invalid credentials']);
 
         } catch (\Exception $e) {
-            \Log::error('Login error: ' . $e->getMessage());
+            Log::error('Login error: ' . $e->getMessage());
             return back()
                 ->withInput($request->only('email'))
                 ->withErrors(['email' => 'An error occurred during login']);

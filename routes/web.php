@@ -15,7 +15,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/login', [WebAuthController::class, 'login'])->name('admin.login');
     Route::get('/logout', [WebAuthController::class, 'logout'])->name('admin.logout');
     
-    Route::middleware(['auth', 'admin'])->group(function () {
+    Route::middleware(['auth', \App\Http\Middleware\AdminMiddleware::class])->group(function () {
         Route::get('/dashboard', function () {
             return view('admin.dashboard');
         })->name('admin.dashboard');
