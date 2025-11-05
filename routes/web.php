@@ -3,22 +3,42 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebAuthController;
 use App\Http\Controllers\Api\AuthController;
+use Illuminate\Support\Facades\File;
 
 // Frontend routes
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [App\Http\Controllers\FrontendController::class, 'index']);
+Route::get('/services', [App\Http\Controllers\FrontendController::class, 'services']);
+Route::get('/about', [App\Http\Controllers\FrontendController::class, 'about']);
+Route::get('/contact', [App\Http\Controllers\FrontendController::class, 'contact']);
 
 // Admin routes
 Route::prefix('admin')->group(function () {
     Route::get('/login', [WebAuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [WebAuthController::class, 'login'])->name('admin.login');
-    Route::get('/logout', [WebAuthController::class, 'logout'])->name('admin.logout');
+    Route::post('/logout', [WebAuthController::class, 'logout'])->name('admin.logout');
     
     Route::middleware(['auth', \App\Http\Middleware\AdminMiddleware::class])->group(function () {
+        // Dashboard
         Route::get('/dashboard', function () {
             return view('admin.dashboard');
         })->name('admin.dashboard');
+
+        // Services Management
+        Route::get('/services', [App\Http\Controllers\Admin\ServiceController::class, 'index'])->name('admin.services');
+        Route::get('/services/create', [App\Http\Controllers\Admin\ServiceController::class, 'create'])->name('admin.services.create');
+        Route::post('/services', [App\Http\Controllers\Admin\ServiceController::class, 'store'])->name('admin.services.store');
+        Route::get('/services/{service}/edit', [App\Http\Controllers\Admin\ServiceController::class, 'edit'])->name('admin.services.edit');
+        Route::put('/services/{service}', [App\Http\Controllers\Admin\ServiceController::class, 'update'])->name('admin.services.update');
+        Route::delete('/services/{service}', [App\Http\Controllers\Admin\ServiceController::class, 'destroy'])->name('admin.services.destroy');
+
+        // Contacts Management
+        Route::get('/contacts', [App\Http\Controllers\Admin\ContactController::class, 'index'])->name('admin.contacts');
+        Route::get('/contacts/{contact}', [App\Http\Controllers\Admin\ContactController::class, 'show'])->name('admin.contacts.show');
+        Route::delete('/contacts/{contact}', [App\Http\Controllers\Admin\ContactController::class, 'destroy'])->name('admin.contacts.destroy');
+
+        // Content Management
+        Route::get('/content', [App\Http\Controllers\Admin\ContentController::class, 'index'])->name('admin.content');
+        Route::put('/content/{section}', [App\Http\Controllers\Admin\ContentController::class, 'update'])->name('admin.content.update');
     });
 });
 
