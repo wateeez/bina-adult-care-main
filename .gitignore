@@ -22,3 +22,31 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Composer
+composer.phar
+composer.lock
+
+# Tools and utilities
+/tools
+
+# Docker local configs
+docker-compose.local.yml
+Dockerfile.local
+
+# Old PHP files (if any remain)
+*.old.php
+*.backup.php
+
+# Database dumps (keep .sql in database/ folder for deployment)
+*.sql.gz
+*.sql.zip
+
+# IDE specific
+*.sublime-project
+*.sublime-workspace
+
+# OS specific
+.DS_Store
+Thumbs.db
+desktop.ini

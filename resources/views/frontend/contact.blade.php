@@ -109,7 +109,6 @@
                 <li><a href="{{ route('about') }}">About Us</a></li>
                 <li><a href="{{ route('services') }}">Services</a></li>
                 <li><a href="{{ route('contact') }}" class="active">Contact</a></li>
-                <li class="admin-login"><a href="{{ route('login') }}">Admin Login</a></li>
             </ul>
         </div>
     </nav>
