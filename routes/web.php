@@ -6,10 +6,11 @@ use App\Http\Controllers\Api\AuthController;
 use Illuminate\Support\Facades\File;
 
 // Frontend routes
-Route::get('/', [App\Http\Controllers\FrontendController::class, 'index']);
-Route::get('/services', [App\Http\Controllers\FrontendController::class, 'services']);
-Route::get('/about', [App\Http\Controllers\FrontendController::class, 'about']);
-Route::get('/contact', [App\Http\Controllers\FrontendController::class, 'contact']);
+Route::get('/', [App\Http\Controllers\FrontendController::class, 'index'])->name('home');
+Route::get('/services', [App\Http\Controllers\FrontendController::class, 'services'])->name('services');
+Route::get('/about', [App\Http\Controllers\FrontendController::class, 'about'])->name('about');
+Route::get('/contact', [App\Http\Controllers\FrontendController::class, 'contact'])->name('contact');
+Route::post('/contact', [App\Http\Controllers\FrontendController::class, 'submitContact'])->name('contact.submit');
 
 // Admin routes
 Route::prefix('admin')->group(function () {
@@ -39,6 +40,14 @@ Route::prefix('admin')->group(function () {
         // Content Management
         Route::get('/content', [App\Http\Controllers\Admin\ContentController::class, 'index'])->name('admin.content');
         Route::put('/content/{section}', [App\Http\Controllers\Admin\ContentController::class, 'update'])->name('admin.content.update');
+
+        // Benefits Management
+        Route::get('/benefits', [App\Http\Controllers\Admin\BenefitController::class, 'index'])->name('admin.benefits');
+        Route::get('/benefits/create', [App\Http\Controllers\Admin\BenefitController::class, 'create'])->name('admin.benefits.create');
+        Route::post('/benefits', [App\Http\Controllers\Admin\BenefitController::class, 'store'])->name('admin.benefits.store');
+        Route::get('/benefits/{benefit}/edit', [App\Http\Controllers\Admin\BenefitController::class, 'edit'])->name('admin.benefits.edit');
+        Route::put('/benefits/{benefit}', [App\Http\Controllers\Admin\BenefitController::class, 'update'])->name('admin.benefits.update');
+        Route::delete('/benefits/{benefit}', [App\Http\Controllers\Admin\BenefitController::class, 'destroy'])->name('admin.benefits.destroy');
     });
 });
 

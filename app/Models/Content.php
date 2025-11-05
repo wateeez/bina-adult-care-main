@@ -10,8 +10,8 @@ class Content extends Model
     use HasFactory;
 
     protected $fillable = [
-        'page',
-        'key',
-        'value',
+        'section',
+        'content',
+        'background_image',
     ];
 }

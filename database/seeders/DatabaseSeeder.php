@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ServiceSeeder::class,
             ContentSeeder::class,
+            BenefitSeeder::class,
         ]);
     }
 }

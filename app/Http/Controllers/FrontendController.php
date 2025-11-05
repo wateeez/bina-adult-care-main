@@ -3,58 +3,48 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
+use App\Models\Service;
+use App\Models\Contact;
 
 class FrontendController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        return $this->handlePhpFile('index.php', $request);
+        $contents = \App\Models\Content::all()->keyBy('section');
+        $benefits = \App\Models\Benefit::orderBy('order')->get();
+        return view('frontend.index', compact('contents', 'benefits'));
     }
 
-    public function services(Request $request)
+    public function services()
     {
-        return $this->handlePhpFile('services.php', $request);
+        $services = Service::all();
+        $contents = \App\Models\Content::all()->keyBy('section');
+        return view('frontend.services', compact('services', 'contents'));
     }
 
-    public function about(Request $request)
+    public function about()
     {
-        return $this->handlePhpFile('about.php', $request);
+        $contents = \App\Models\Content::all()->keyBy('section');
+        return view('frontend.about', compact('contents'));
     }
 
-    public function contact(Request $request)
+    public function contact()
     {
-        return $this->handlePhpFile('contact.php', $request);
+        $contents = \App\Models\Content::all()->keyBy('section');
+        return view('frontend.contact', compact('contents'));
     }
 
-    protected function handlePhpFile($filename, Request $request)
+    public function submitContact(Request $request)
     {
-        // Set up the basic server variables
-        $_SERVER['REQUEST_URI'] = $request->getRequestUri();
-        $_SERVER['REQUEST_METHOD'] = $request->method();
-        $_SERVER['HTTP_HOST'] = $request->getHost();
-        $_SERVER['SCRIPT_NAME'] = '/index.php';
-        $_SERVER['PHP_SELF'] = '/index.php';
-        $_SERVER['SCRIPT_FILENAME'] = base_path($filename);
-        $_SERVER['DOCUMENT_ROOT'] = public_path();
-        
-        // Set up request data
-        $_GET = $request->query();
-        $_POST = $request->post();
-        $_FILES = $request->allFiles();
-        $_COOKIE = $request->cookie(); // Fixed: Using cookie() method instead of cookies property
-        
-        // Handle request headers
-        foreach ($request->headers->all() as $key => $value) {
-            $headerKey = 'HTTP_' . strtoupper(str_replace('-', '_', $key));
-            $_SERVER[$headerKey] = $value[0];
-        }
-        
-        // Start output buffering to capture the PHP file output
-        ob_start();
-        include base_path($filename);
-        $content = ob_get_clean();
-        
-        return response($content);
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:20',
+            'message' => 'required|string'
+        ]);
+
+        Contact::create($validated);
+
+        return redirect()->back()->with('success', 'Thank you for your message! We will get back to you soon.');
     }
 }

@@ -10,9 +10,9 @@ return new class extends Migration
     {
         Schema::create('contents', function (Blueprint $table) {
             $table->id();
-            $table->string('page')->index();
-            $table->string('key');
-            $table->longText('value')->nullable();
+            $table->string('section')->unique();
+            $table->longText('content')->nullable();
+            $table->string('background_image')->nullable();
             $table->timestamps();
         });
     }

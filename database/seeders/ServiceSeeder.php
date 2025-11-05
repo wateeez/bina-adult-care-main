@@ -13,32 +13,32 @@ class ServiceSeeder extends Seeder
             [
                 'title' => 'Personal Care Assistance',
                 'description' => 'Professional assistance with daily activities including bathing, dressing, grooming, and mobility support.',
-                'image_path' => 'images/personal-care.jpg',
+                'image' => null,
             ],
             [
                 'title' => 'Companionship & Emotional Support',
                 'description' => 'Friendly conversation, social engagement, and emotional support to enhance quality of life.',
-                'image_path' => 'images/companionship.jpg',
+                'image' => null,
             ],
             [
                 'title' => 'Medication Reminders',
                 'description' => 'Timely medication reminders and assistance with organizing prescriptions.',
-                'image_path' => 'images/medication.jpg',
+                'image' => null,
             ],
             [
                 'title' => 'Light Housekeeping',
                 'description' => 'Assistance with maintaining a clean and organized living environment.',
-                'image_path' => 'images/housekeeping.jpg',
+                'image' => null,
             ],
             [
                 'title' => 'Respite Care',
                 'description' => 'Temporary relief for family caregivers to prevent burnout and ensure continued quality care.',
-                'image_path' => 'images/respite.jpg',
+                'image' => null,
             ],
             [
                 'title' => 'Transportation Assistance',
                 'description' => 'Safe and reliable transportation for medical appointments, shopping, and social activities.',
-                'image_path' => 'images/transportation.jpg',
+                'image' => null,
             ],
         ];
 
