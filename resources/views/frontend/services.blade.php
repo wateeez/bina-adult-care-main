@@ -3,7 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services - Bina Adult Care</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>Our Services - Bina Adult Care | Comprehensive Caregiving Solutions</title>
+    <meta name="description" content="Explore Bina Adult Care's comprehensive caregiving services. Professional home care, personal assistance, and specialized support tailored to your needs.">
+    <meta name="keywords" content="caregiving services, home care services, personal care, elder care, professional caregiver services, health support">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Our Services - Bina Adult Care">
+    <meta property="og:description" content="Comprehensive care solutions tailored to your needs. Professional caregiving services you can trust.">
+    <meta property="og:url" content="{{ url('/services') }}">
+    <meta property="og:type" content="website">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ url('/services') }}">
+    
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>

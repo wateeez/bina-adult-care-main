@@ -3,7 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact - Bina Adult Care</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>Contact Us - Bina Adult Care | Get in Touch for Care Services</title>
+    <meta name="description" content="Contact Bina Adult Care for professional caregiving services. Reach out to discuss your care needs or join our team of dedicated caregivers. We're here to help.">
+    <meta name="keywords" content="contact bina adult care, caregiver inquiries, care consultation, employment opportunities, caregiver jobs contact">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Contact Us - Bina Adult Care">
+    <meta property="og:description" content="Get in touch with Bina Adult Care. We're here to answer your questions and discuss your care needs.">
+    <meta property="og:url" content="{{ url('/contact') }}">
+    <meta property="og:type" content="website">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ url('/contact') }}">
+    
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">

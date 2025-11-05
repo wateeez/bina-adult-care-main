@@ -3,7 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - Bina Adult Care</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>About Us - Bina Adult Care | Our Story & Mission</title>
+    <meta name="description" content="Learn about Bina Adult Care - an organization founded and operated by caregivers who understand the challenges you face. Discover our mission, values, and commitment to exceptional care.">
+    <meta name="keywords" content="about bina adult care, caregiver story, care mission, values, experienced caregivers, compassionate care">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="About Bina Adult Care - Our Story & Mission">
+    <meta property="og:description" content="Founded by caregivers who've lived it. We understand the demands and emotional toll of caregiving firsthand.">
+    <meta property="og:url" content="{{ url('/about') }}">
+    <meta property="og:type" content="website">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ url('/about') }}">
+    
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>

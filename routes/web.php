@@ -14,14 +14,17 @@ Route::post('/contact', [App\Http\Controllers\FrontendController::class, 'submit
 
 // Admin routes
 Route::prefix('admin')->group(function () {
-    Route::get('/login', [WebAuthController::class, 'showLogin'])->name('login');
-    Route::post('/login', [WebAuthController::class, 'login'])->name('admin.login');
-    Route::post('/logout', [WebAuthController::class, 'logout'])->name('admin.logout');
+    // Auth routes (no middleware)
+    Route::get('/login', [App\Http\Controllers\Admin\AuthController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('/login', [App\Http\Controllers\Admin\AuthController::class, 'login']);
+    Route::post('/logout', [App\Http\Controllers\Admin\AuthController::class, 'logout'])->name('admin.logout');
     
-    Route::middleware(['auth', \App\Http\Middleware\AdminMiddleware::class])->group(function () {
+    // Content Editor routes (both super admin and content editor can access)
+    Route::middleware(['content.editor'])->group(function () {
         // Dashboard
         Route::get('/dashboard', function () {
-            return view('admin.dashboard');
+            $admin = \App\Models\UserAdmin::find(session('admin_id'));
+            return view('admin.dashboard', compact('admin'));
         })->name('admin.dashboard');
 
         // Services Management
@@ -48,6 +51,21 @@ Route::prefix('admin')->group(function () {
         Route::get('/benefits/{benefit}/edit', [App\Http\Controllers\Admin\BenefitController::class, 'edit'])->name('admin.benefits.edit');
         Route::put('/benefits/{benefit}', [App\Http\Controllers\Admin\BenefitController::class, 'update'])->name('admin.benefits.update');
         Route::delete('/benefits/{benefit}', [App\Http\Controllers\Admin\BenefitController::class, 'destroy'])->name('admin.benefits.destroy');
+    });
+
+    // Super Admin only routes
+    Route::middleware(['super.admin'])->group(function () {
+        // Admin Management
+        Route::get('/admins', [App\Http\Controllers\Admin\AdminManagementController::class, 'index'])->name('admin.admins.index');
+        Route::get('/admins/create', [App\Http\Controllers\Admin\AdminManagementController::class, 'create'])->name('admin.admins.create');
+        Route::post('/admins', [App\Http\Controllers\Admin\AdminManagementController::class, 'store'])->name('admin.admins.store');
+        Route::get('/admins/{admin}/edit', [App\Http\Controllers\Admin\AdminManagementController::class, 'edit'])->name('admin.admins.edit');
+        Route::put('/admins/{admin}', [App\Http\Controllers\Admin\AdminManagementController::class, 'update'])->name('admin.admins.update');
+        Route::put('/admins/{admin}/change-password', [App\Http\Controllers\Admin\AdminManagementController::class, 'changePassword'])->name('admin.admins.change-password');
+        Route::delete('/admins/{admin}', [App\Http\Controllers\Admin\AdminManagementController::class, 'destroy'])->name('admin.admins.destroy');
+        
+        // Activity Logs
+        Route::get('/activity-logs', [App\Http\Controllers\Admin\AdminManagementController::class, 'activityLogs'])->name('admin.activity-logs');
     });
 });
 

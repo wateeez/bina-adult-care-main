@@ -17,23 +17,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create admin user
-        $user = User::create([
-            'name' => 'Admin User',
-            'email' => 'admin@bina-adult-care.com',
-            'password' => Hash::make('admin123')
-        ]);
-
-        UserAdmin::create([
-            'user_id' => $user->id,
-            'role' => 'admin'
-        ]);
-
-        // Seed content and services
+        // Seed content, services, benefits, and admin accounts
         $this->call([
             ServiceSeeder::class,
             ContentSeeder::class,
             BenefitSeeder::class,
+            UserAdminSeeder::class, // Creates admin accounts with email/password
         ]);
     }
 }

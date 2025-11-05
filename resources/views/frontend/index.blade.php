@@ -3,7 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bina Adult Care - Professional Caregiving Services</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>Bina Adult Care - Professional Caregiving Services | Home Care & Support</title>
+    <meta name="description" content="Bina Adult Care provides professional caregiving services operated by experienced caregivers. We offer personalized home care, health support, and comprehensive benefits for our employees.">
+    <meta name="keywords" content="adult care, caregiving services, home care, elder care, professional caregivers, health workers, caregiver jobs, bina adult care">
+    <meta name="author" content="Bina Adult Care">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url('/') }}">
+    <meta property="og:title" content="Bina Adult Care - Professional Caregiving Services">
+    <meta property="og:description" content="Owned, operated, and managed by caregivers. We look after your best interests with a profound understanding of the challenges caregivers face.">
+    <meta property="og:image" content="{{ asset('images/og-image.jpg') }}">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url('/') }}">
+    <meta property="twitter:title" content="Bina Adult Care - Professional Caregiving Services">
+    <meta property="twitter:description" content="Owned, operated, and managed by caregivers. Professional home care services with industry-leading benefits.">
+    <meta property="twitter:image" content="{{ asset('images/og-image.jpg') }}">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ url('/') }}">
+    
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">

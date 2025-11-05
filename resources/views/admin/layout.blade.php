@@ -319,6 +319,20 @@
                         <i class="fas fa-tachometer-alt"></i> Dashboard
                     </a>
                 </li>
+                
+                @php
+                    $currentAdmin = \App\Models\UserAdmin::find(session('admin_id'));
+                @endphp
+                
+                @if($currentAdmin && $currentAdmin->isSuperAdmin())
+                <!-- Super Admin Only -->
+                <li>
+                    <a href="{{ route('admin.admins.index') }}" class="{{ request()->routeIs('admin.admins*') || request()->routeIs('admin.activity-logs') ? 'active' : '' }}">
+                        <i class="fas fa-users-cog"></i> Admin Management
+                    </a>
+                </li>
+                @endif
+                
                 <li>
                     <a href="{{ route('admin.services') }}" class="{{ request()->routeIs('admin.services*') ? 'active' : '' }}">
                         <i class="fas fa-concierge-bell"></i> Services
@@ -348,7 +362,19 @@
             <div class="topbar">
                 <h1>@yield('page-title', 'Dashboard')</h1>
                 <div class="user-info">
-                    <span>{{ auth()->user()->name }}</span>
+                    @php
+                        $currentAdmin = \App\Models\UserAdmin::find(session('admin_id'));
+                    @endphp
+                    @if($currentAdmin)
+                        <span>
+                            {{ $currentAdmin->email }}
+                            @if($currentAdmin->isSuperAdmin())
+                                <span style="color: #dc3545; margin-left: 5px;">
+                                    <i class="fas fa-crown"></i>
+                                </span>
+                            @endif
+                        </span>
+                    @endif
                     <form method="POST" action="{{ route('admin.logout') }}" style="display: inline;">
                         @csrf
                         <button type="submit" class="logout-btn">
