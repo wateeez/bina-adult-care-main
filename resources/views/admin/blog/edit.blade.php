@@ -1,0 +1,296 @@
+@extends('admin.layouts.app')
+
+@section('content')
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow-sm">
+                <div class="card-header" style="background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%); color: white;">
+                    <h5 class="mb-0"><i class="fas fa-edit me-2"></i>Edit Blog Post</h5>
+                </div>
+                <div class="card-body">
+                    @if($errors->any())
+                        <div class="alert alert-danger alert-dismissible fade show">
+                            <ul class="mb-0">
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    @endif
+
+                    <form action="{{ route('admin.blog.update', $blog->id) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+                        
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="mb-3">
+                                    <label for="title" class="form-label">Title <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $blog->title) }}" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="excerpt" class="form-label">Excerpt</label>
+                                    <textarea class="form-control" id="excerpt" name="excerpt" rows="2">{{ old('excerpt', $blog->excerpt) }}</textarea>
+                                    <small class="text-muted">Brief summary</small>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="content" class="form-label">Content <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" id="content" name="content" rows="15" required>{{ old('content', $blog->content) }}</textarea>
+                                </div>
+
+                                <!-- Current Header Image -->
+                                @if($blog->header_image)
+                                    <div class="mb-3">
+                                        <label class="form-label">Current Header Image</label>
+                                        <div>
+                                            <img src="{{ $blog->header_image_url }}" alt="{{ $blog->title }}" style="max-width: 100%; max-height: 300px; border-radius: 8px;">
+                                        </div>
+                                    </div>
+                                @endif
+
+                                <div class="mb-3">
+                                    <label for="header_image" class="form-label">{{ $blog->header_image ? 'Replace Header Image' : 'Header Image' }}</label>
+                                    <input type="file" class="form-control" id="header_image" name="header_image" accept="image/*">
+                                    <div id="headerPreview" class="mt-2" style="display: none;">
+                                        <img id="headerPreviewImg" src="" alt="Preview" style="max-width: 100%; max-height: 300px; border-radius: 8px;">
+                                    </div>
+                                </div>
+
+                                <!-- Existing Paragraph Images -->
+                                @if($paragraphImages->count() > 0)
+                                    <div class="card mb-3">
+                                        <div class="card-header bg-light">
+                                            <i class="fas fa-images me-2"></i>Existing Paragraph Images
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                @foreach($paragraphImages as $image)
+                                                    <div class="col-md-4 mb-3" id="existing-image-{{ $image->id }}">
+                                                        <div class="card">
+                                                            <img src="{{ $image->image_url }}" alt="{{ $image->alt_text }}" style="height: 150px; object-fit: cover;">
+                                                            <div class="card-body">
+                                                                <p class="mb-1"><strong>Paragraph {{ $image->paragraph_number }}</strong></p>
+                                                                @if($image->caption)
+                                                                    <p class="mb-1 small">{{ $image->caption }}</p>
+                                                                @endif
+                                                                <button type="button" class="btn btn-sm btn-outline-danger delete-para-img" data-id="{{ $image->id }}">
+                                                                    <i class="fas fa-trash"></i> Delete
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+
+                                <!-- Add New Paragraph Images -->
+                                <div class="card mb-3">
+                                    <div class="card-header bg-light">
+                                        <i class="fas fa-plus me-2"></i>Add New Paragraph Images
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="paragraphImagesContainer">
+                                            <div class="paragraph-image-row mb-3">
+                                                <div class="row align-items-end">
+                                                    <div class="col-md-3">
+                                                        <label class="form-label">Image</label>
+                                                        <input type="file" class="form-control" name="paragraph_images[]" accept="image/*">
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label class="form-label">Paragraph #</label>
+                                                        <input type="number" class="form-control" name="paragraph_numbers[]" value="1" min="1">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label class="form-label">Caption</label>
+                                                        <input type="text" class="form-control" name="image_captions[]">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label class="form-label">Alt Text</label>
+                                                        <input type="text" class="form-control" name="image_alt_texts[]">
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <button type="button" class="btn btn-outline-danger btn-sm remove-para-img" style="display: none;">
+                                                            <i class="fas fa-times"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn btn-sm btn-outline-primary" id="addParagraphImage">
+                                            <i class="fas fa-plus me-1"></i> Add Another Image
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sidebar -->
+                            <div class="col-md-4">
+                                <div class="card mb-3">
+                                    <div class="card-header bg-light">
+                                        <i class="fas fa-cog me-2"></i>Publish Settings
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-3">
+                                            <label for="author_name" class="form-label">Author Name</label>
+                                            <input type="text" class="form-control" id="author_name" name="author_name" value="{{ old('author_name', $blog->author_name) }}" required>
+                                        </div>
+
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" type="checkbox" id="is_published" name="is_published" value="1" {{ old('is_published', $blog->is_published) ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="is_published">
+                                                Published
+                                            </label>
+                                        </div>
+
+                                        @if($blog->published_at)
+                                            <p class="small text-muted">
+                                                <i class="fas fa-calendar"></i> Published: {{ $blog->published_at->format('M j, Y g:i A') }}
+                                            </p>
+                                        @endif
+                                        
+                                        <p class="small text-muted">
+                                            <i class="fas fa-eye"></i> Views: {{ $blog->view_count }}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="card mb-3">
+                                    <div class="card-header bg-light">
+                                        <i class="fas fa-search me-2"></i>SEO Settings
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-3">
+                                            <label for="meta_title" class="form-label">Meta Title</label>
+                                            <input type="text" class="form-control" id="meta_title" name="meta_title" value="{{ old('meta_title', $blog->meta_title) }}" maxlength="60">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="meta_description" class="form-label">Meta Description</label>
+                                            <textarea class="form-control" id="meta_description" name="meta_description" rows="3" maxlength="160">{{ old('meta_description', $blog->meta_description) }}</textarea>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="meta_keywords" class="form-label">Meta Keywords</label>
+                                            <input type="text" class="form-control" id="meta_keywords" name="meta_keywords" value="{{ old('meta_keywords', $blog->meta_keywords) }}">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save me-2"></i>Update Blog Post
+                                    </button>
+                                    <a href="{{ route('admin.blog.index') }}" class="btn btn-outline-secondary">
+                                        <i class="fas fa-times me-2"></i>Cancel
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.btn-primary {
+    background: #4A90E2;
+    border-color: #4A90E2;
+}
+
+.btn-primary:hover {
+    background: #357ABD;
+    border-color: #357ABD;
+}
+
+.form-check-input:checked {
+    background-color: #4A90E2;
+    border-color: #4A90E2;
+}
+</style>
+
+<script>
+// Header image preview
+document.getElementById('header_image').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('headerPreviewImg').src = e.target.result;
+            document.getElementById('headerPreview').style.display = 'block';
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+// Add paragraph image
+document.getElementById('addParagraphImage').addEventListener('click', function() {
+    const container = document.getElementById('paragraphImagesContainer');
+    const newRow = container.firstElementChild.cloneNode(true);
+    
+    newRow.querySelectorAll('input').forEach(input => {
+        if (input.type === 'file') {
+            input.value = '';
+        } else if (input.type === 'number') {
+            input.value = parseInt(input.value) + 1;
+        } else {
+            input.value = '';
+        }
+    });
+    
+    newRow.querySelector('.remove-para-img').style.display = 'block';
+    container.appendChild(newRow);
+    container.querySelectorAll('.remove-para-img').forEach(btn => btn.style.display = 'block');
+});
+
+// Remove paragraph image row
+document.getElementById('paragraphImagesContainer').addEventListener('click', function(e) {
+    if (e.target.closest('.remove-para-img')) {
+        const row = e.target.closest('.paragraph-image-row');
+        if (this.querySelectorAll('.paragraph-image-row').length > 1) {
+            row.remove();
+        }
+        if (this.querySelectorAll('.paragraph-image-row').length === 1) {
+            this.querySelector('.remove-para-img').style.display = 'none';
+        }
+    }
+});
+
+// Delete existing paragraph image
+document.querySelectorAll('.delete-para-img').forEach(btn => {
+    btn.addEventListener('click', function() {
+        if (!confirm('Are you sure you want to delete this image?')) {
+            return;
+        }
+        
+        const imageId = this.dataset.id;
+        
+        fetch(`/admin/blog/paragraph-image/${imageId}`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById(`existing-image-${imageId}`).remove();
+            } else {
+                alert('Error deleting image');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error deleting image');
+        });
+    });
+});
+</script>
+@endsection

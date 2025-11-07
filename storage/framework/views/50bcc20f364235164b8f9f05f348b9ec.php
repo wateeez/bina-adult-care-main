@@ -13,15 +13,15 @@
     <!-- Open Graph -->
     <meta property="og:title" content="Contact Us - Bina Adult Care">
     <meta property="og:description" content="Get in touch with Bina Adult Care. We're here to answer your questions and discuss your care needs.">
-    <meta property="og:url" content="{{ url('/contact') }}">
+    <meta property="og:url" content="<?php echo e(url('/contact')); ?>">
     <meta property="og:type" content="website">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="{{ url('/contact') }}">
+    <link rel="canonical" href="<?php echo e(url('/contact')); ?>">
     
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/color-theme.css') }}">
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/styles.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/color-theme.css')); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* Additional styles for Contact page */
@@ -113,28 +113,28 @@
     </style>
 </head>
 <body>
-    @include('partials.announcement-bar')
-    @include('partials.announcement-popup')
+    <?php echo $__env->make('partials.announcement-bar', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+    <?php echo $__env->make('partials.announcement-popup', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
     
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="{{ route('home') }}" class="logo" style="display: flex; align-items: center; gap: 0.5rem;">
-                @if($siteLogo)
-                    <img src="{{ $siteLogo }}" alt="{{ $siteName }}" style="height: 50px; max-width: 200px; object-fit: contain;">
-                @endif
-                <span>{{ $siteName }}</span>
+            <a href="<?php echo e(route('home')); ?>" class="logo" style="display: flex; align-items: center; gap: 0.5rem;">
+                <?php if($siteLogo): ?>
+                    <img src="<?php echo e($siteLogo); ?>" alt="<?php echo e($siteName); ?>" style="height: 50px; max-width: 200px; object-fit: contain;">
+                <?php endif; ?>
+                <span><?php echo e($siteName); ?></span>
             </a>
             <div class="menu-toggle">
                 <i class="fas fa-bars"></i>
             </div>
             <ul class="nav-links">
-                <li><a href="{{ route('home') }}">Home</a></li>
-                <li><a href="{{ route('about') }}">About Us</a></li>
-                <li><a href="{{ route('services') }}">Services</a></li>
-                <li><a href="{{ route('gallery') }}">Gallery</a></li>
-                <li><a href="{{ route('blog.index') }}">Blog</a></li>
-                <li><a href="{{ route('contact') }}" class="active">Contact</a></li>
+                <li><a href="<?php echo e(route('home')); ?>">Home</a></li>
+                <li><a href="<?php echo e(route('about')); ?>">About Us</a></li>
+                <li><a href="<?php echo e(route('services')); ?>">Services</a></li>
+                <li><a href="<?php echo e(route('gallery')); ?>">Gallery</a></li>
+                <li><a href="<?php echo e(route('blog.index')); ?>">Blog</a></li>
+                <li><a href="<?php echo e(route('contact')); ?>" class="active">Contact</a></li>
             </ul>
         </div>
     </nav>
@@ -149,39 +149,40 @@
                 <div class="contact-form">
                     <h2>Send us a Message</h2>
                     
-                    @if(session('success'))
+                    <?php if(session('success')): ?>
                         <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+                            <?php echo e(session('success')); ?>
 
-                    @if($errors->any())
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if($errors->any()): ?>
                         <div class="alert alert-error">
                             <ul style="margin: 0; padding-left: 1.5rem;">
-                                @foreach($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
+                                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <li><?php echo e($error); ?></li>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </ul>
                         </div>
-                    @endif
+                    <?php endif; ?>
 
-                    <form id="contactForm" method="POST" action="{{ route('contact.submit') }}">
-                        @csrf
+                    <form id="contactForm" method="POST" action="<?php echo e(route('contact.submit')); ?>">
+                        <?php echo csrf_field(); ?>
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" id="name" name="name" value="{{ old('name') }}" required>
+                            <input type="text" id="name" name="name" value="<?php echo e(old('name')); ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" id="email" name="email" value="{{ old('email') }}" required>
+                            <input type="email" id="email" name="email" value="<?php echo e(old('email')); ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="phone">Phone</label>
-                            <input type="tel" id="phone" name="phone" value="{{ old('phone') }}" required>
+                            <input type="tel" id="phone" name="phone" value="<?php echo e(old('phone')); ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="message">Message</label>
-                            <textarea id="message" name="message" required>{{ old('message') }}</textarea>
+                            <textarea id="message" name="message" required><?php echo e(old('message')); ?></textarea>
                         </div>
                         <button type="submit" class="btn primary">Send Message</button>
                     </form>
@@ -247,10 +248,10 @@
                 <div class="footer-section">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="{{ route('home') }}">Home</a></li>
-                        <li><a href="{{ route('about') }}">About Us</a></li>
-                        <li><a href="{{ route('services') }}">Services</a></li>
-                        <li><a href="{{ route('contact') }}">Contact</a></li>
+                        <li><a href="<?php echo e(route('home')); ?>">Home</a></li>
+                        <li><a href="<?php echo e(route('about')); ?>">About Us</a></li>
+                        <li><a href="<?php echo e(route('services')); ?>">Services</a></li>
+                        <li><a href="<?php echo e(route('contact')); ?>">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -265,6 +266,7 @@
         </div>
     </footer>
 
-    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="<?php echo e(asset('js/main.js')); ?>"></script>
 </body>
 </html>
+<?php /**PATH C:\Users\DELL\Desktop\My Files\Dev\bina-adult-care-main-master\resources\views/frontend/contact.blade.php ENDPATH**/ ?>

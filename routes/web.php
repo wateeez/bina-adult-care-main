@@ -11,6 +11,11 @@ Route::get('/services', [App\Http\Controllers\FrontendController::class, 'servic
 Route::get('/about', [App\Http\Controllers\FrontendController::class, 'about'])->name('about');
 Route::get('/contact', [App\Http\Controllers\FrontendController::class, 'contact'])->name('contact');
 Route::post('/contact', [App\Http\Controllers\FrontendController::class, 'submitContact'])->name('contact.submit');
+Route::get('/gallery', [App\Http\Controllers\GalleryPageController::class, 'index'])->name('gallery');
+
+// Blog routes (SEO-friendly URLs)
+Route::get('/blog', [App\Http\Controllers\BlogPageController::class, 'index'])->name('blog.index');
+Route::get('/blog/{slug}', [App\Http\Controllers\BlogPageController::class, 'show'])->name('blog.show');
 
 // Admin routes
 Route::prefix('admin')->group(function () {
@@ -51,6 +56,34 @@ Route::prefix('admin')->group(function () {
         Route::get('/benefits/{benefit}/edit', [App\Http\Controllers\Admin\BenefitController::class, 'edit'])->name('admin.benefits.edit');
         Route::put('/benefits/{benefit}', [App\Http\Controllers\Admin\BenefitController::class, 'update'])->name('admin.benefits.update');
         Route::delete('/benefits/{benefit}', [App\Http\Controllers\Admin\BenefitController::class, 'destroy'])->name('admin.benefits.destroy');
+        
+        // Gallery Management
+        Route::get('/gallery', [App\Http\Controllers\Admin\GalleryController::class, 'index'])->name('admin.gallery.index');
+        Route::post('/gallery', [App\Http\Controllers\Admin\GalleryController::class, 'store'])->name('admin.gallery.store');
+        Route::put('/gallery/{gallery}', [App\Http\Controllers\Admin\GalleryController::class, 'update'])->name('admin.gallery.update');
+        Route::delete('/gallery/{gallery}', [App\Http\Controllers\Admin\GalleryController::class, 'destroy'])->name('admin.gallery.destroy');
+        Route::post('/gallery/update-order', [App\Http\Controllers\Admin\GalleryController::class, 'updateOrder'])->name('admin.gallery.update-order');
+        Route::post('/gallery/toggle-homepage', [App\Http\Controllers\Admin\GalleryController::class, 'toggleHomepage'])->name('admin.gallery.toggle-homepage');
+        
+        // Blog Management
+        Route::get('/blog', [App\Http\Controllers\Admin\BlogController::class, 'index'])->name('admin.blog.index');
+        Route::get('/blog/create', [App\Http\Controllers\Admin\BlogController::class, 'create'])->name('admin.blog.create');
+        Route::post('/blog', [App\Http\Controllers\Admin\BlogController::class, 'store'])->name('admin.blog.store');
+        Route::get('/blog/{blog}/edit', [App\Http\Controllers\Admin\BlogController::class, 'edit'])->name('admin.blog.edit');
+        Route::put('/blog/{blog}', [App\Http\Controllers\Admin\BlogController::class, 'update'])->name('admin.blog.update');
+        Route::delete('/blog/{blog}', [App\Http\Controllers\Admin\BlogController::class, 'destroy'])->name('admin.blog.destroy');
+        Route::post('/blog/{blog}/toggle-publish', [App\Http\Controllers\Admin\BlogController::class, 'togglePublish'])->name('admin.blog.toggle-publish');
+        Route::delete('/blog/paragraph-image/{image}', [App\Http\Controllers\Admin\BlogController::class, 'deleteParagraphImage'])->name('admin.blog.paragraph-image.delete');
+        
+        // Announcement Management
+        Route::get('/announcements', [App\Http\Controllers\Admin\AnnouncementController::class, 'index'])->name('admin.announcements.index');
+        Route::get('/announcements/create', [App\Http\Controllers\Admin\AnnouncementController::class, 'create'])->name('admin.announcements.create');
+        Route::post('/announcements', [App\Http\Controllers\Admin\AnnouncementController::class, 'store'])->name('admin.announcements.store');
+        Route::get('/announcements/{announcement}/edit', [App\Http\Controllers\Admin\AnnouncementController::class, 'edit'])->name('admin.announcements.edit');
+        Route::put('/announcements/{announcement}', [App\Http\Controllers\Admin\AnnouncementController::class, 'update'])->name('admin.announcements.update');
+        Route::delete('/announcements/{announcement}', [App\Http\Controllers\Admin\AnnouncementController::class, 'destroy'])->name('admin.announcements.destroy');
+        Route::post('/announcements/{announcement}/toggle', [App\Http\Controllers\Admin\AnnouncementController::class, 'toggleActive'])->name('admin.announcements.toggle');
+        Route::delete('/announcements/{announcement}/delete-image', [App\Http\Controllers\Admin\AnnouncementController::class, 'deleteImage'])->name('admin.announcements.delete-image');
     });
 
     // Super Admin only routes
@@ -66,6 +99,12 @@ Route::prefix('admin')->group(function () {
         
         // Activity Logs
         Route::get('/activity-logs', [App\Http\Controllers\Admin\AdminManagementController::class, 'activityLogs'])->name('admin.activity-logs');
+        
+        // Site Settings
+        Route::get('/settings', [App\Http\Controllers\Admin\SiteSettingsController::class, 'index'])->name('admin.settings.index');
+        Route::post('/settings/logo', [App\Http\Controllers\Admin\SiteSettingsController::class, 'updateLogo'])->name('admin.settings.logo.update');
+        Route::delete('/settings/logo', [App\Http\Controllers\Admin\SiteSettingsController::class, 'removeLogo'])->name('admin.settings.logo.remove');
+        Route::post('/settings/sitename', [App\Http\Controllers\Admin\SiteSettingsController::class, 'updateSiteName'])->name('admin.settings.sitename.update');
     });
 });
 

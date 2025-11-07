@@ -13,14 +13,14 @@
     <!-- Open Graph -->
     <meta property="og:title" content="About Bina Adult Care - Our Story & Mission">
     <meta property="og:description" content="Founded by caregivers who've lived it. We understand the demands and emotional toll of caregiving firsthand.">
-    <meta property="og:url" content="{{ url('/about') }}">
+    <meta property="og:url" content="<?php echo e(url('/about')); ?>">
     <meta property="og:type" content="website">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="{{ url('/about') }}">
+    <link rel="canonical" href="<?php echo e(url('/about')); ?>">
     
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/color-theme.css') }}">
+    <link rel="stylesheet" href="<?php echo e(asset('css/styles.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/color-theme.css')); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* Additional styles for About page */
@@ -60,34 +60,34 @@
     </style>
 </head>
 <body>
-    @include('partials.announcement-bar')
-    @include('partials.announcement-popup')
+    <?php echo $__env->make('partials.announcement-bar', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+    <?php echo $__env->make('partials.announcement-popup', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
     
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="{{ route('home') }}" class="logo" style="display: flex; align-items: center; gap: 0.5rem;">
-                @if($siteLogo)
-                    <img src="{{ $siteLogo }}" alt="{{ $siteName }}" style="height: 50px; max-width: 200px; object-fit: contain;">
-                @endif
-                <span>{{ $siteName }}</span>
+            <a href="<?php echo e(route('home')); ?>" class="logo" style="display: flex; align-items: center; gap: 0.5rem;">
+                <?php if($siteLogo): ?>
+                    <img src="<?php echo e($siteLogo); ?>" alt="<?php echo e($siteName); ?>" style="height: 50px; max-width: 200px; object-fit: contain;">
+                <?php endif; ?>
+                <span><?php echo e($siteName); ?></span>
             </a>
             <div class="menu-toggle">
                 <i class="fas fa-bars"></i>
             </div>
             <ul class="nav-links">
-                <li><a href="{{ route('home') }}">Home</a></li>
-                <li><a href="{{ route('about') }}" class="active">About Us</a></li>
-                <li><a href="{{ route('services') }}">Services</a></li>
-                <li><a href="{{ route('gallery') }}">Gallery</a></li>
-                <li><a href="{{ route('blog.index') }}">Blog</a></li>
-                <li><a href="{{ route('contact') }}">Contact</a></li>
+                <li><a href="<?php echo e(route('home')); ?>">Home</a></li>
+                <li><a href="<?php echo e(route('about')); ?>" class="active">About Us</a></li>
+                <li><a href="<?php echo e(route('services')); ?>">Services</a></li>
+                <li><a href="<?php echo e(route('gallery')); ?>">Gallery</a></li>
+                <li><a href="<?php echo e(route('blog.index')); ?>">Blog</a></li>
+                <li><a href="<?php echo e(route('contact')); ?>">Contact</a></li>
             </ul>
         </div>
     </nav>
 
     <!-- About Hero Section -->
-    <section class="about-hero" @if(isset($contents['about_hero']) && $contents['about_hero']->background_image) style="background-image: linear-gradient(rgba(74, 144, 226, 0.1), rgba(74, 144, 226, 0.1)), url('{{ asset('storage/' . $contents['about_hero']->background_image) }}'); background-size: cover; background-position: center;" @endif>
+    <section class="about-hero" <?php if(isset($contents['about_hero']) && $contents['about_hero']->background_image): ?> style="background-image: linear-gradient(rgba(74, 144, 226, 0.1), rgba(74, 144, 226, 0.1)), url('<?php echo e(asset('storage/' . $contents['about_hero']->background_image)); ?>'); background-size: cover; background-position: center;" <?php endif; ?>>
         <div class="hero-content">
             <h1>We Understand Caregiving — Because We've Lived It.</h1>
         </div>
@@ -141,10 +141,10 @@
                 <div class="footer-section">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="{{ route('home') }}">Home</a></li>
-                        <li><a href="{{ route('about') }}">About Us</a></li>
-                        <li><a href="{{ route('services') }}">Services</a></li>
-                        <li><a href="{{ route('contact') }}">Contact</a></li>
+                        <li><a href="<?php echo e(route('home')); ?>">Home</a></li>
+                        <li><a href="<?php echo e(route('about')); ?>">About Us</a></li>
+                        <li><a href="<?php echo e(route('services')); ?>">Services</a></li>
+                        <li><a href="<?php echo e(route('contact')); ?>">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -159,6 +159,7 @@
         </div>
     </footer>
 
-    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="<?php echo e(asset('js/main.js')); ?>"></script>
 </body>
 </html>
+<?php /**PATH C:\Users\DELL\Desktop\My Files\Dev\bina-adult-care-main-master\resources\views/frontend/about.blade.php ENDPATH**/ ?>

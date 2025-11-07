@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Admin Dashboard') - Bina Adult Care</title>
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
+    <title><?php echo $__env->yieldContent('title', 'Admin Dashboard'); ?> - Bina Adult Care</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
@@ -303,7 +303,7 @@
             font-weight: bold;
         }
     </style>
-    @stack('styles')
+    <?php echo $__env->yieldPushContent('styles'); ?>
 </head>
 <body>
     <div class="admin-container">
@@ -315,61 +315,61 @@
             </div>
             <ul class="sidebar-menu">
                 <li>
-                    <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                    <a href="<?php echo e(route('admin.dashboard')); ?>" class="<?php echo e(request()->routeIs('admin.dashboard') ? 'active' : ''); ?>">
                         <i class="fas fa-tachometer-alt"></i> Dashboard
                     </a>
                 </li>
                 
-                @php
+                <?php
                     $currentAdmin = \App\Models\UserAdmin::find(session('admin_id'));
-                @endphp
+                ?>
                 
-                @if($currentAdmin && $currentAdmin->isSuperAdmin())
+                <?php if($currentAdmin && $currentAdmin->isSuperAdmin()): ?>
                 <!-- Super Admin Only -->
                 <li>
-                    <a href="{{ route('admin.admins.index') }}" class="{{ request()->routeIs('admin.admins*') || request()->routeIs('admin.activity-logs') ? 'active' : '' }}">
+                    <a href="<?php echo e(route('admin.admins.index')); ?>" class="<?php echo e(request()->routeIs('admin.admins*') || request()->routeIs('admin.activity-logs') ? 'active' : ''); ?>">
                         <i class="fas fa-users-cog"></i> Admin Management
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.settings.index') }}" class="{{ request()->routeIs('admin.settings*') ? 'active' : '' }}">
+                    <a href="<?php echo e(route('admin.settings.index')); ?>" class="<?php echo e(request()->routeIs('admin.settings*') ? 'active' : ''); ?>">
                         <i class="fas fa-cog"></i> Settings
                     </a>
                 </li>
-                @endif
+                <?php endif; ?>
                 
                 <li>
-                    <a href="{{ route('admin.services') }}" class="{{ request()->routeIs('admin.services*') ? 'active' : '' }}">
+                    <a href="<?php echo e(route('admin.services')); ?>" class="<?php echo e(request()->routeIs('admin.services*') ? 'active' : ''); ?>">
                         <i class="fas fa-concierge-bell"></i> Services
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.benefits') }}" class="{{ request()->routeIs('admin.benefits*') ? 'active' : '' }}">
+                    <a href="<?php echo e(route('admin.benefits')); ?>" class="<?php echo e(request()->routeIs('admin.benefits*') ? 'active' : ''); ?>">
                         <i class="fas fa-star"></i> Benefits
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.gallery.index') }}" class="{{ request()->routeIs('admin.gallery*') ? 'active' : '' }}">
+                    <a href="<?php echo e(route('admin.gallery.index')); ?>" class="<?php echo e(request()->routeIs('admin.gallery*') ? 'active' : ''); ?>">
                         <i class="fas fa-images"></i> Photo Gallery
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.blog.index') }}" class="{{ request()->routeIs('admin.blog*') ? 'active' : '' }}">
+                    <a href="<?php echo e(route('admin.blog.index')); ?>" class="<?php echo e(request()->routeIs('admin.blog*') ? 'active' : ''); ?>">
                         <i class="fas fa-blog"></i> Blog Posts
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.announcements.index') }}" class="{{ request()->routeIs('admin.announcements*') ? 'active' : '' }}">
+                    <a href="<?php echo e(route('admin.announcements.index')); ?>" class="<?php echo e(request()->routeIs('admin.announcements*') ? 'active' : ''); ?>">
                         <i class="fas fa-bullhorn"></i> Announcements
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.contacts') }}" class="{{ request()->routeIs('admin.contacts*') ? 'active' : '' }}">
+                    <a href="<?php echo e(route('admin.contacts')); ?>" class="<?php echo e(request()->routeIs('admin.contacts*') ? 'active' : ''); ?>">
                         <i class="fas fa-envelope"></i> Contact Messages
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.content') }}" class="{{ request()->routeIs('admin.content*') ? 'active' : '' }}">
+                    <a href="<?php echo e(route('admin.content')); ?>" class="<?php echo e(request()->routeIs('admin.content*') ? 'active' : ''); ?>">
                         <i class="fas fa-file-alt"></i> Content Management
                     </a>
                 </li>
@@ -380,23 +380,24 @@
         <main class="main-content">
             <!-- Top Bar -->
             <div class="topbar">
-                <h1>@yield('page-title', 'Dashboard')</h1>
+                <h1><?php echo $__env->yieldContent('page-title', 'Dashboard'); ?></h1>
                 <div class="user-info">
-                    @php
+                    <?php
                         $currentAdmin = \App\Models\UserAdmin::find(session('admin_id'));
-                    @endphp
-                    @if($currentAdmin)
+                    ?>
+                    <?php if($currentAdmin): ?>
                         <span>
-                            {{ $currentAdmin->email }}
-                            @if($currentAdmin->isSuperAdmin())
+                            <?php echo e($currentAdmin->email); ?>
+
+                            <?php if($currentAdmin->isSuperAdmin()): ?>
                                 <span style="color: #dc3545; margin-left: 5px;">
                                     <i class="fas fa-crown"></i>
                                 </span>
-                            @endif
+                            <?php endif; ?>
                         </span>
-                    @endif
-                    <form method="POST" action="{{ route('admin.logout') }}" style="display: inline;">
-                        @csrf
+                    <?php endif; ?>
+                    <form method="POST" action="<?php echo e(route('admin.logout')); ?>" style="display: inline;">
+                        <?php echo csrf_field(); ?>
                         <button type="submit" class="logout-btn">
                             <i class="fas fa-sign-out-alt"></i> Logout
                         </button>
@@ -406,27 +407,29 @@
 
             <!-- Content -->
             <div class="content">
-                @if(session('success'))
+                <?php if(session('success')): ?>
                     <div class="alert alert-success">
-                        <i class="fas fa-check-circle"></i> {{ session('success') }}
-                    </div>
-                @endif
+                        <i class="fas fa-check-circle"></i> <?php echo e(session('success')); ?>
 
-                @if($errors->any())
+                    </div>
+                <?php endif; ?>
+
+                <?php if($errors->any()): ?>
                     <div class="alert alert-error">
                         <ul style="margin: 0; padding-left: 20px;">
-                            @foreach($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
+                            <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <li><?php echo e($error); ?></li>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </ul>
                     </div>
-                @endif
+                <?php endif; ?>
 
-                @yield('content')
+                <?php echo $__env->yieldContent('content'); ?>
             </div>
         </main>
     </div>
 
-    @stack('scripts')
+    <?php echo $__env->yieldPushContent('scripts'); ?>
 </body>
 </html>
+<?php /**PATH C:\Users\DELL\Desktop\My Files\Dev\bina-adult-care-main-master\resources\views/admin/layout.blade.php ENDPATH**/ ?>

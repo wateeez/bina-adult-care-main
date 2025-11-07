@@ -45,6 +45,34 @@
             font-size: 1rem;
         }
 
+        .password-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .password-wrapper input {
+            padding-right: 2.5rem;
+            width: 100%;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 0.5rem;
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+            z-index: 10;
+        }
+
+        .password-toggle:hover {
+            color: var(--primary-color);
+        }
+
         .login-btn {
             background: var(--primary-color);
             color: white;
@@ -95,7 +123,12 @@
 
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
+                <div class="password-wrapper">
+                    <input type="password" id="password" name="password" required>
+                    <button type="button" class="password-toggle" onclick="togglePassword()">
+                        <i class="fas fa-eye" id="toggleIcon"></i>
+                    </button>
+                </div>
                 @error('password')
                     <span class="error-message">{{ $message }}</span>
                 @enderror
@@ -105,6 +138,22 @@
         </form>
     </div>
 
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('toggleIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
+    </script>
     <script src="{{ asset('js/main.js') }}"></script>
 </body>
 </html>

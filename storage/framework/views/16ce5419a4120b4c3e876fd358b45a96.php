@@ -13,14 +13,14 @@
     <!-- Open Graph -->
     <meta property="og:title" content="Our Services - Bina Adult Care">
     <meta property="og:description" content="Comprehensive care solutions tailored to your needs. Professional caregiving services you can trust.">
-    <meta property="og:url" content="{{ url('/services') }}">
+    <meta property="og:url" content="<?php echo e(url('/services')); ?>">
     <meta property="og:type" content="website">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="{{ url('/services') }}">
+    <link rel="canonical" href="<?php echo e(url('/services')); ?>">
     
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/color-theme.css') }}">
+    <link rel="stylesheet" href="<?php echo e(asset('css/styles.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/color-theme.css')); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* Additional styles for Services page */
@@ -78,34 +78,34 @@
     </style>
 </head>
 <body>
-    @include('partials.announcement-bar')
-    @include('partials.announcement-popup')
+    <?php echo $__env->make('partials.announcement-bar', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+    <?php echo $__env->make('partials.announcement-popup', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
     
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="{{ route('home') }}" class="logo" style="display: flex; align-items: center; gap: 0.5rem;">
-                @if($siteLogo)
-                    <img src="{{ $siteLogo }}" alt="{{ $siteName }}" style="height: 50px; max-width: 200px; object-fit: contain;">
-                @endif
-                <span>{{ $siteName }}</span>
+            <a href="<?php echo e(route('home')); ?>" class="logo" style="display: flex; align-items: center; gap: 0.5rem;">
+                <?php if($siteLogo): ?>
+                    <img src="<?php echo e($siteLogo); ?>" alt="<?php echo e($siteName); ?>" style="height: 50px; max-width: 200px; object-fit: contain;">
+                <?php endif; ?>
+                <span><?php echo e($siteName); ?></span>
             </a>
             <div class="menu-toggle">
                 <i class="fas fa-bars"></i>
             </div>
             <ul class="nav-links">
-                <li><a href="{{ route('home') }}">Home</a></li>
-                <li><a href="{{ route('about') }}">About Us</a></li>
-                <li><a href="{{ route('services') }}" class="active">Services</a></li>
-                <li><a href="{{ route('gallery') }}">Gallery</a></li>
-                <li><a href="{{ route('blog.index') }}">Blog</a></li>
-                <li><a href="{{ route('contact') }}">Contact</a></li>
+                <li><a href="<?php echo e(route('home')); ?>">Home</a></li>
+                <li><a href="<?php echo e(route('about')); ?>">About Us</a></li>
+                <li><a href="<?php echo e(route('services')); ?>" class="active">Services</a></li>
+                <li><a href="<?php echo e(route('gallery')); ?>">Gallery</a></li>
+                <li><a href="<?php echo e(route('blog.index')); ?>">Blog</a></li>
+                <li><a href="<?php echo e(route('contact')); ?>">Contact</a></li>
             </ul>
         </div>
     </nav>
 
     <!-- Services Hero Section -->
-    <section class="services-hero" @if(isset($contents['services_intro']) && $contents['services_intro']->background_image) style="background-image: linear-gradient(rgba(74, 144, 226, 0.1), rgba(74, 144, 226, 0.1)), url('{{ asset('storage/' . $contents['services_intro']->background_image) }}'); background-size: cover; background-position: center;" @endif>
+    <section class="services-hero" <?php if(isset($contents['services_intro']) && $contents['services_intro']->background_image): ?> style="background-image: linear-gradient(rgba(74, 144, 226, 0.1), rgba(74, 144, 226, 0.1)), url('<?php echo e(asset('storage/' . $contents['services_intro']->background_image)); ?>'); background-size: cover; background-position: center;" <?php endif; ?>>
         <div class="hero-content">
             <h1>Our Services</h1>
             <p>Comprehensive care solutions tailored to your needs</p>
@@ -115,21 +115,21 @@
     <!-- Services Grid -->
     <div class="container">
         <div class="services-grid">
-            @if($services->isEmpty())
+            <?php if($services->isEmpty()): ?>
                 <div class="no-services">
                     <p>No services available at the moment.</p>
                 </div>
-            @else
-                @foreach($services as $service)
+            <?php else: ?>
+                <?php $__currentLoopData = $services; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $service): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="service-card">
-                        <div class="service-image" style="background-image: url('{{ $service->image ? asset('storage/' . $service->image) : asset('images/default-service.jpg') }}');"></div>
+                        <div class="service-image" style="background-image: url('<?php echo e($service->image ? asset('storage/' . $service->image) : asset('images/default-service.jpg')); ?>');"></div>
                         <div class="service-content">
-                            <h3>{{ $service->title }}</h3>
-                            <p>{{ $service->description }}</p>
+                            <h3><?php echo e($service->title); ?></h3>
+                            <p><?php echo e($service->description); ?></p>
                         </div>
                     </div>
-                @endforeach
-            @endif
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php endif; ?>
         </div>
     </div>
 
@@ -144,10 +144,10 @@
                 <div class="footer-section">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="{{ route('home') }}">Home</a></li>
-                        <li><a href="{{ route('about') }}">About Us</a></li>
-                        <li><a href="{{ route('services') }}">Services</a></li>
-                        <li><a href="{{ route('contact') }}">Contact</a></li>
+                        <li><a href="<?php echo e(route('home')); ?>">Home</a></li>
+                        <li><a href="<?php echo e(route('about')); ?>">About Us</a></li>
+                        <li><a href="<?php echo e(route('services')); ?>">Services</a></li>
+                        <li><a href="<?php echo e(route('contact')); ?>">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -162,6 +162,7 @@
         </div>
     </footer>
 
-    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="<?php echo e(asset('js/main.js')); ?>"></script>
 </body>
 </html>
+<?php /**PATH C:\Users\DELL\Desktop\My Files\Dev\bina-adult-care-main-master\resources\views/frontend/services.blade.php ENDPATH**/ ?>

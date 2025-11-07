@@ -68,19 +68,45 @@ document.addEventListener('DOMContentLoaded', () => {
         contactForm.addEventListener('submit', handleContactSubmission);
     }
 
+    // Mobile menu toggle for all pages
     const menuToggle = document.querySelector('.menu-toggle');
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     const navLinks = document.querySelector('.nav-links');
+    const navMenu = document.getElementById('navMenu');
 
-    if (menuToggle) {
-        menuToggle.addEventListener('click', () => {
+    // Function to toggle menu
+    function toggleMenu() {
+        if (navLinks) {
             navLinks.classList.toggle('active');
-        });
+        }
+        if (navMenu) {
+            navMenu.classList.toggle('active');
+        }
     }
+
+    // Add click handlers
+    if (menuToggle) {
+        menuToggle.addEventListener('click', toggleMenu);
+    }
+    if (mobileMenuToggle) {
+        mobileMenuToggle.addEventListener('click', toggleMenu);
+    }
+
+    // Make toggleMenu global for onclick handlers
+    window.toggleMenu = toggleMenu;
 
     // Close menu when clicking outside
     document.addEventListener('click', (e) => {
+        const navLinks = document.querySelector('.nav-links');
+        const navMenu = document.getElementById('navMenu');
+        const menuToggle = document.querySelector('.menu-toggle');
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        
         if (navLinks && menuToggle && !navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
             navLinks.classList.remove('active');
+        }
+        if (navMenu && mobileMenuToggle && !navMenu.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+            navMenu.classList.remove('active');
         }
     });
 
@@ -98,34 +124,34 @@ document.addEventListener('DOMContentLoaded', () => {
                     block: 'start'
                 });
                 // Close mobile menu after clicking
+                const navLinks = document.querySelector('.nav-links');
+                const navMenu = document.getElementById('navMenu');
                 if (navLinks) {
                     navLinks.classList.remove('active');
+                }
+                if (navMenu) {
+                    navMenu.classList.remove('active');
                 }
             }
         });
     });
 
-    // Navbar scroll effect
-    let lastScrollTop = 0;
-    const navbar = document.querySelector('.navbar');
+    // Navbar scroll effect - disabled auto-hide
+    const navbar = document.querySelector('.navbar') || document.querySelector('nav');
     
     if (navbar) {
+        // Add transition
+        navbar.style.transition = 'box-shadow 0.3s ease';
+        
         window.addEventListener('scroll', () => {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             
-            if (scrollTop > lastScrollTop) {
-                navbar.style.transform = 'translateY(-100%)';
-            } else {
-                navbar.style.transform = 'translateY(0)';
-            }
-            
+            // Only change shadow, don't hide navbar
             if (scrollTop === 0) {
-                navbar.style.boxShadow = '0 2px 5px rgba(0,0,0,0.1)';
+                navbar.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
             } else {
-                navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+                navbar.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
             }
-            
-            lastScrollTop = scrollTop;
         });
     }
 });

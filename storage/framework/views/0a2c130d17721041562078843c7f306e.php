@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - Bina Adult Care</title>
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="<?php echo e(asset('css/styles.css')); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* Website Design Language - Blue Theme */
@@ -423,44 +423,44 @@
     <!-- Admin Navigation (scoped classes to avoid frontend CSS collisions) -->
     <nav class="admin-navbar" style="background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 2000;">
         <div class="admin-nav-container" style="max-width: 1400px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center;">
-            <a href="{{ route('admin.dashboard') }}" class="logo" style="font-size: 1.5rem; font-weight: bold; color: #4A90E2; text-decoration: none;">
+            <a href="<?php echo e(route('admin.dashboard')); ?>" class="logo" style="font-size: 1.5rem; font-weight: bold; color: #4A90E2; text-decoration: none;">
                 <i class="fas fa-shield-alt"></i> Bina Admin
             </a>
             <div class="admin-nav-links" style="display: flex; gap: 2rem; align-items: center;">
-                <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" style="color: {{ request()->routeIs('admin.dashboard') ? '#4A90E2' : '#333333' }}; text-decoration: none; font-weight: 500; transition: color 0.3s;">
+                <a href="<?php echo e(route('admin.dashboard')); ?>" class="<?php echo e(request()->routeIs('admin.dashboard') ? 'active' : ''); ?>" style="color: <?php echo e(request()->routeIs('admin.dashboard') ? '#4A90E2' : '#333333'); ?>; text-decoration: none; font-weight: 500; transition: color 0.3s;">
                     <i class="fas fa-tachometer-alt"></i> Dashboard
                 </a>
-                <a href="{{ route('admin.services') }}" class="{{ request()->routeIs('admin.services*') ? 'active' : '' }}" style="color: {{ request()->routeIs('admin.services*') ? '#4A90E2' : '#333333' }}; text-decoration: none; font-weight: 500; transition: color 0.3s;">
+                <a href="<?php echo e(route('admin.services')); ?>" class="<?php echo e(request()->routeIs('admin.services*') ? 'active' : ''); ?>" style="color: <?php echo e(request()->routeIs('admin.services*') ? '#4A90E2' : '#333333'); ?>; text-decoration: none; font-weight: 500; transition: color 0.3s;">
                     <i class="fas fa-concierge-bell"></i> Services
                 </a>
-                <a href="{{ route('admin.contacts') }}" class="{{ request()->routeIs('admin.contacts*') ? 'active' : '' }}" style="color: {{ request()->routeIs('admin.contacts*') ? '#4A90E2' : '#333333' }}; text-decoration: none; font-weight: 500; transition: color 0.3s;">
+                <a href="<?php echo e(route('admin.contacts')); ?>" class="<?php echo e(request()->routeIs('admin.contacts*') ? 'active' : ''); ?>" style="color: <?php echo e(request()->routeIs('admin.contacts*') ? '#4A90E2' : '#333333'); ?>; text-decoration: none; font-weight: 500; transition: color 0.3s;">
                     <i class="fas fa-envelope"></i> Contacts
                 </a>
-                <a href="{{ route('admin.content') }}" class="{{ request()->routeIs('admin.content*') ? 'active' : '' }}" style="color: {{ request()->routeIs('admin.content*') ? '#4A90E2' : '#333333' }}; text-decoration: none; font-weight: 500; transition: color 0.3s;">
+                <a href="<?php echo e(route('admin.content')); ?>" class="<?php echo e(request()->routeIs('admin.content*') ? 'active' : ''); ?>" style="color: <?php echo e(request()->routeIs('admin.content*') ? '#4A90E2' : '#333333'); ?>; text-decoration: none; font-weight: 500; transition: color 0.3s;">
                     <i class="fas fa-file-alt"></i> Content
                 </a>
-                <a href="{{ route('admin.gallery.index') }}" class="{{ request()->routeIs('admin.gallery*') ? 'active' : '' }}" style="color: {{ request()->routeIs('admin.gallery*') ? '#4A90E2' : '#333333' }}; text-decoration: none; font-weight: 500; transition: color 0.3s;">
+                <a href="<?php echo e(route('admin.gallery.index')); ?>" class="<?php echo e(request()->routeIs('admin.gallery*') ? 'active' : ''); ?>" style="color: <?php echo e(request()->routeIs('admin.gallery*') ? '#4A90E2' : '#333333'); ?>; text-decoration: none; font-weight: 500; transition: color 0.3s;">
                     <i class="fas fa-images"></i> Gallery
                 </a>
-                <a href="{{ route('admin.blog.index') }}" class="{{ request()->routeIs('admin.blog*') ? 'active' : '' }}" style="color: {{ request()->routeIs('admin.blog*') ? '#4A90E2' : '#333333' }}; text-decoration: none; font-weight: 500; transition: color 0.3s;">
+                <a href="<?php echo e(route('admin.blog.index')); ?>" class="<?php echo e(request()->routeIs('admin.blog*') ? 'active' : ''); ?>" style="color: <?php echo e(request()->routeIs('admin.blog*') ? '#4A90E2' : '#333333'); ?>; text-decoration: none; font-weight: 500; transition: color 0.3s;">
                     <i class="fas fa-blog"></i> Blog
                 </a>
-                <a href="{{ route('admin.announcements.index') }}" class="{{ request()->routeIs('admin.announcements*') ? 'active' : '' }}" style="color: {{ request()->routeIs('admin.announcements*') ? '#4A90E2' : '#333333' }}; text-decoration: none; font-weight: 500; transition: color 0.3s;">
+                <a href="<?php echo e(route('admin.announcements.index')); ?>" class="<?php echo e(request()->routeIs('admin.announcements*') ? 'active' : ''); ?>" style="color: <?php echo e(request()->routeIs('admin.announcements*') ? '#4A90E2' : '#333333'); ?>; text-decoration: none; font-weight: 500; transition: color 0.3s;">
                     <i class="fas fa-bullhorn"></i> Announcements
                 </a>
-                @php
+                <?php
                     $currentAdmin = \App\Models\UserAdmin::find(session('admin_id'));
-                @endphp
-                @if($currentAdmin && $currentAdmin->isSuperAdmin())
-                <a href="{{ route('admin.admins.index') }}" class="{{ request()->routeIs('admin.admins*') || request()->routeIs('admin.activity-logs') ? 'active' : '' }}" style="color: {{ request()->routeIs('admin.admins*') || request()->routeIs('admin.activity-logs') ? '#4A90E2' : '#333333' }}; text-decoration: none; font-weight: 500; transition: color 0.3s;">
+                ?>
+                <?php if($currentAdmin && $currentAdmin->isSuperAdmin()): ?>
+                <a href="<?php echo e(route('admin.admins.index')); ?>" class="<?php echo e(request()->routeIs('admin.admins*') || request()->routeIs('admin.activity-logs') ? 'active' : ''); ?>" style="color: <?php echo e(request()->routeIs('admin.admins*') || request()->routeIs('admin.activity-logs') ? '#4A90E2' : '#333333'); ?>; text-decoration: none; font-weight: 500; transition: color 0.3s;">
                     <i class="fas fa-users-cog"></i> Admins
                 </a>
-                <a href="{{ route('admin.settings.index') }}" class="{{ request()->routeIs('admin.settings*') ? 'active' : '' }}" style="color: {{ request()->routeIs('admin.settings*') ? '#4A90E2' : '#333333' }}; text-decoration: none; font-weight: 500; transition: color 0.3s;">
+                <a href="<?php echo e(route('admin.settings.index')); ?>" class="<?php echo e(request()->routeIs('admin.settings*') ? 'active' : ''); ?>" style="color: <?php echo e(request()->routeIs('admin.settings*') ? '#4A90E2' : '#333333'); ?>; text-decoration: none; font-weight: 500; transition: color 0.3s;">
                     <i class="fas fa-cog"></i> Settings
                 </a>
-                @endif
-                <form action="{{ route('admin.logout') }}" method="POST" style="margin: 0;">
-                    @csrf
+                <?php endif; ?>
+                <form action="<?php echo e(route('admin.logout')); ?>" method="POST" style="margin: 0;">
+                    <?php echo csrf_field(); ?>
                     <button type="submit" class="btn btn-link" style="color: #dc3545;">
                         <i class="fas fa-sign-out-alt"></i> Logout
                     </button>
@@ -471,22 +471,24 @@
 
     <!-- Main Content -->
     <main class="admin-content" style="max-width: 1400px; margin: 0 auto; padding: 2rem;">
-        @if(session('success'))
+        <?php if(session('success')): ?>
             <div class="alert alert-success">
-                <i class="fas fa-check-circle"></i> {{ session('success') }}
-            </div>
-        @endif
+                <i class="fas fa-check-circle"></i> <?php echo e(session('success')); ?>
 
-        @if(session('error'))
+            </div>
+        <?php endif; ?>
+
+        <?php if(session('error')): ?>
             <div class="alert alert-danger">
-                <i class="fas fa-exclamation-circle"></i> {{ session('error') }}
-            </div>
-        @endif
+                <i class="fas fa-exclamation-circle"></i> <?php echo e(session('error')); ?>
 
-        @yield('content')
+            </div>
+        <?php endif; ?>
+
+        <?php echo $__env->yieldContent('content'); ?>
     </main>
 
-    <script src="{{ asset('js/admin.js') }}"></script>
+    <script src="<?php echo e(asset('js/admin.js')); ?>"></script>
     <style>
         /* Admin navbar isolation to prevent frontend CSS from affecting it */
         .admin-navbar {
@@ -512,4 +514,4 @@
         }
     </style>
 </body>
-</html>
+</html><?php /**PATH C:\Users\DELL\Desktop\My Files\Dev\bina-adult-care-main-master\resources\views/admin/layouts/app.blade.php ENDPATH**/ ?>

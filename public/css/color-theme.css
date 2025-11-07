@@ -1,0 +1,859 @@
+/* Modern Senior-Friendly Color Overrides - Apply after main styles.css */
+
+/* Fix Navigation Layout */
+.navbar,
+nav {
+    background-color: var(--nav-color) !important;
+    padding: 0 !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: 70px !important;
+    z-index: 1040 !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+}
+
+/* Announcement Bar - Position below navbar */
+.announcement-bar {
+    position: fixed !important;
+    top: 70px !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 1035 !important;
+    width: 100% !important;
+}
+
+nav .container {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 0.8rem 1.5rem !important;
+    max-width: 1280px !important;
+    margin: 0 auto !important;
+    height: auto !important;
+}
+
+nav ul,
+nav #navMenu {
+    display: flex !important;
+    list-style: none !important;
+    gap: 4px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+nav ul li,
+nav #navMenu li {
+    margin: 0 !important;
+}
+
+nav ul li a,
+nav #navMenu li a {
+    color: var(--text-light) !important;
+    text-decoration: none !important;
+    padding: 10px 20px !important;
+    font-size: 1rem !important;
+    font-weight: 500 !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease !important;
+    display: inline-block !important;
+    min-height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+nav ul li a:hover,
+nav ul li a:focus,
+nav #navMenu li a:hover,
+nav #navMenu li a:focus {
+    background: rgba(255, 255, 255, 0.2) !important;
+    transform: translateY(-2px) !important;
+}
+
+.nav-logo {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    font-size: 1.3rem !important;
+    font-weight: 700 !important;
+    color: var(--text-light) !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+    z-index: 1001 !important;
+}
+
+.nav-logo img {
+    height: 45px !important;
+    max-height: 45px !important;
+    width: auto !important;
+    max-width: 180px !important;
+    object-fit: contain !important;
+    background: #ffffff !important;
+    padding: 2px 8px !important;
+    border-radius: 4px !important;
+}
+
+.nav-logo span {
+    color: var(--text-light) !important;
+    font-size: 1.3rem !important;
+    font-weight: 700 !important;
+}
+
+body {
+    padding-top: 0 !important;
+}
+
+.nav-container {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 0.8rem 1.5rem !important;
+    max-width: 1280px !important;
+    margin: 0 auto !important;
+    height: auto !important;
+}
+
+.logo {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    font-size: 1.3rem !important;
+    font-weight: 700 !important;
+    color: var(--text-light) !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+    z-index: 1001 !important;
+}
+
+.logo img {
+    height: 45px !important;
+    max-height: 45px !important;
+    width: auto !important;
+    max-width: 180px !important;
+    object-fit: contain !important;
+    background: #ffffff !important;
+    padding: 2px 8px !important;
+    border-radius: 4px !important;
+}
+
+.logo span {
+    color: var(--text-light) !important;
+    font-size: 1.3rem !important;
+    font-weight: 700 !important;
+}
+
+.menu-toggle {
+    display: none !important;
+}
+
+.nav-links {
+    display: flex !important;
+    list-style: none !important;
+    gap: 4px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.nav-links li {
+    margin: 0 !important;
+}
+
+.nav-links li a {
+    color: var(--text-light) !important;
+    text-decoration: none !important;
+    padding: 10px 20px !important;
+    font-size: 1rem !important;
+    font-weight: 500 !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease !important;
+    display: inline-block !important;
+    min-height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.nav-links li a:hover,
+.nav-links li a:focus,
+.nav-links li a.active {
+    background: rgba(255, 255, 255, 0.2) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Modern Page Transitions */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+section {
+    animation: slideIn 0.6s ease-out;
+}
+
+/* Loading State */
+.loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 3px solid rgba(123, 167, 193, 0.3);
+    border-top-color: var(--nav-color);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Tooltip Modern Design */
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px);
+    padding: 8px 12px;
+    background: rgba(44, 62, 80, 0.95);
+    color: white;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    border-radius: 6px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+[data-tooltip]:hover::before {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-4px);
+}
+
+@media (max-width: 968px) {
+    body {
+        padding-top: 0 !important;
+    }
+    
+    .menu-toggle,
+    .mobile-menu-toggle {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: none !important;
+        border: none !important;
+        color: var(--text-light) !important;
+        font-size: 1.5rem !important;
+        cursor: pointer !important;
+        padding: 8px !important;
+        min-width: 48px !important;
+        min-height: 48px !important;
+        z-index: 1050 !important;
+    }
+    
+    .nav-links,
+    nav ul,
+    nav #navMenu {
+        display: none !important;
+        position: fixed !important;
+        top: 70px !important;
+        left: 0 !important;
+        right: 0 !important;
+        background-color: var(--nav-color) !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        padding: 16px !important;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.2) !important;
+        max-height: calc(100vh - 70px) !important;
+        overflow-y: auto !important;
+        z-index: 1039 !important;
+    }
+    
+    .nav-links.active,
+    nav ul.active,
+    nav #navMenu.active {
+        display: flex !important;
+        animation: slideDown 0.3s ease-out !important;
+    }
+    
+    .nav-links li,
+    nav ul li,
+    nav #navMenu li {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+    
+    .nav-links li a,
+    nav ul li a,
+    nav #navMenu li a {
+        width: 100% !important;
+        padding: 16px 20px !important;
+        font-size: 1.1rem !important;
+        border-radius: 8px !important;
+        justify-content: flex-start !important;
+    }
+    
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+/* Override all old color references with new palette */
+:root {
+    /* New Modern Color Scheme */
+    --nav-color: #7ba7c1 !important;           /* Light Blue Navigation */
+    --bg-color: #f9f0ed !important;            /* Off-White Background */
+    --footer-color: #455766 !important;        /* Dark Blue Footer */
+    --benefits-color: #ec9a63 !important;      /* Light Orange Benefits */
+    --text-dark: #2c3e50 !important;           /* High Contrast Dark Text */
+    --text-light: #ffffff !important;          /* White Text */
+    --accent-color: #d67d47 !important;        /* Darker Orange for Accents */
+    --hover-color: #5d8aa8 !important;         /* Darker Blue for Hover */
+    
+    /* Override old variables */
+    --primary-color: #7ba7c1 !important;
+    --secondary-color: #ec9a63 !important;
+    --text-color: #2c3e50 !important;
+    --light-bg: #f9f0ed !important;
+}
+
+/* Global overrides for inline styles */
+[style*="#4A90E2"] {
+    color: var(--nav-color) !important;
+}
+
+[style*="background: #4A90E2"],
+[style*="background-color: #4A90E2"] {
+    background-color: var(--nav-color) !important;
+}
+
+[style*="border-color: #4A90E2"] {
+    border-color: var(--nav-color) !important;
+}
+
+[style*="#F5E6D3"] {
+    color: var(--benefits-color) !important;
+}
+
+[style*="background-color: #F5E6D3"] {
+    background-color: var(--bg-color) !important;
+}
+
+/* Navigation specific */
+nav,
+.navbar {
+    background-color: var(--nav-color) !important;
+}
+
+nav a,
+.navbar a,
+.nav-links a {
+    color: var(--text-light) !important;
+}
+
+/* Footer specific */
+footer {
+    background: linear-gradient(135deg, var(--footer-color), #364656) !important;
+    color: #ffffff !important;
+}
+
+footer h3,
+footer h3::after {
+    color: #ffffff !important;
+}
+
+footer p,
+footer a,
+footer li {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+footer a:hover,
+footer a:focus {
+    color: #ffffff !important;
+}
+
+.footer-bottom {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Benefits and highlight sections */
+.benefits,
+[class*="benefit"] {
+    background: linear-gradient(135deg, var(--benefits-color), #f0a876) !important;
+}
+
+/* Blog and Gallery headers */
+.blog-header,
+.page-header,
+[style*="linear-gradient(135deg, #4A90E2"] {
+    background: linear-gradient(135deg, var(--nav-color), var(--hover-color)) !important;
+    color: #ffffff !important;
+    margin-top: 130px !important;
+}
+
+.blog-header h1,
+.blog-header h2,
+.blog-header p,
+.page-header h1,
+.page-header h2,
+.page-header p,
+.page-header i,
+.blog-header i,
+[style*="linear-gradient(135deg, #4A90E2"] h1,
+[style*="linear-gradient(135deg, #4A90E2"] h2,
+[style*="linear-gradient(135deg, #4A90E2"] p,
+[style*="linear-gradient(135deg, #4A90E2"] i {
+    color: #ffffff !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Gallery headers - same as page headers */
+.gallery-header h2,
+.gallery-header p,
+.gallery-header h1,
+.gallery-header i {
+    color: #000000 !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Gallery item info text */
+.gallery-info h3 {
+    color: #2c3e50 !important;
+    font-weight: 600 !important;
+}
+
+.gallery-info p {
+    color: #2c3e50 !important;
+    opacity: 0.9 !important;
+}
+
+/* Homepage Gallery Section */
+.gallery-section h2 {
+    color: #2c3e50 !important;
+}
+
+.gallery-section p {
+    color: #2c3e50 !important;
+}
+
+.gallery-section h3 {
+    color: #2c3e50 !important;
+}
+
+.gallery-item h3 {
+    color: #2c3e50 !important;
+}
+
+.gallery-item p {
+    color: #2c3e50 !important;
+}
+
+/* Gallery cards background */
+.gallery-item {
+    background: #ffffff !important;
+}
+
+/* Empty state styling */
+.empty-state h2 {
+    color: #2c3e50 !important;
+}
+
+.empty-state p {
+    color: #2c3e50 !important;
+    opacity: 0.8 !important;
+}
+
+.empty-state i {
+    color: var(--nav-color) !important;
+}
+
+/* Gradient background sections (avoid forcing white on plain white backgrounds like homepage gallery) */
+section[style*="linear-gradient"] h2,
+section[style*="linear-gradient"] p,
+section[style*="linear-gradient"] h3,
+.page-header h1,
+.page-header p {
+    color: #ffffff !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+/* Explicit fix: allow black text on white gallery section */
+.gallery-section h2,
+.gallery-section p,
+.gallery-section h3 {
+    color: #2c3e50 !important;
+    text-shadow: none !important;
+}
+
+/* Ensure all headings on colored backgrounds are visible */
+[class*="header"] h1,
+[class*="header"] h2,
+[class*="header"] h3,
+[class*="header"] p {
+    color: #ffffff !important;
+}
+
+/* Fix ALL hero sections across all pages */
+.hero,
+.about-hero,
+.services-hero,
+.contact-hero,
+section[class*="hero"] {
+    position: relative !important;
+    min-height: 600px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    overflow: hidden !important;
+    margin-top: 0 !important;
+    padding-top: 140px !important;
+}
+
+/* Dark overlay for ALL hero sections to make background images visible */
+.hero::before,
+.about-hero::before,
+.services-hero::before,
+.contact-hero::before,
+section[class*="hero"]::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: rgba(0, 0, 0, 0.4) !important;
+    z-index: 1 !important;
+}
+
+/* Hero content - NO WHITE BOX, just text on image */
+.hero-content,
+.about-hero .hero-content,
+.services-hero .hero-content,
+.contact-hero .hero-content {
+    position: relative !important;
+    z-index: 2 !important;
+    text-align: center !important;
+    max-width: 900px !important;
+    padding: 48px !important;
+    background: none !important;
+    backdrop-filter: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+/* White text for ALL hero sections */
+.hero h1,
+.hero p,
+.about-hero h1,
+.about-hero p,
+.services-hero h1,
+.services-hero p,
+.contact-hero h1,
+.contact-hero p,
+.hero-content h1,
+.hero-content p {
+    color: #ffffff !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Buttons */
+.btn.primary,
+button[class*="primary"] {
+    background-color: var(--nav-color) !important;
+    color: #ffffff !important;
+}
+
+.btn.primary:hover,
+button[class*="primary"]:hover {
+    background-color: var(--hover-color) !important;
+    color: #ffffff !important;
+}
+
+.btn.secondary {
+    border-color: var(--nav-color) !important;
+    color: var(--nav-color) !important;
+}
+
+.btn.secondary:hover {
+    background-color: var(--nav-color) !important;
+    color: #ffffff !important;
+}
+
+/* Cards and containers - Modern Glass Effect */
+.card,
+.benefit-card,
+.service-card {
+    background: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(10px) !important;
+    box-shadow: 
+        0 8px 32px rgba(0,0,0,0.1),
+        inset 0 1px 0 rgba(255,255,255,0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.card:hover,
+.benefit-card:hover,
+.service-card:hover {
+    background: rgba(255, 255, 255, 1) !important;
+    box-shadow: 
+        0 16px 48px rgba(0,0,0,0.15),
+        inset 0 1px 0 rgba(255,255,255,0.8) !important;
+}
+
+/* Text colors */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-dark) !important;
+}
+
+/* Icons and accents - Modern Gradients */
+.fa,
+.fas,
+.far,
+[class*="icon"] {
+    background: linear-gradient(135deg, var(--accent-color), var(--benefits-color)) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+
+.benefit-card i,
+.service i {
+    background: linear-gradient(135deg, var(--accent-color), var(--benefits-color)) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    filter: drop-shadow(0 2px 4px rgba(214, 125, 71, 0.3)) !important;
+}
+
+/* Links */
+a:not(.btn):not(.nav-links a):not(footer a) {
+    color: var(--nav-color) !important;
+}
+
+a:not(.btn):not(.nav-links a):not(footer a):hover {
+    color: var(--hover-color) !important;
+}
+
+/* Form inputs - Modern Glass Design */
+input,
+textarea,
+select {
+    font-size: 1.1rem !important;
+    padding: 14px 18px !important;
+    border: 2px solid rgba(123, 167, 193, 0.3) !important;
+    border-radius: 12px !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(10px) !important;
+    transition: all 0.3s ease !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--nav-color) !important;
+    outline: none !important;
+    box-shadow: 
+        0 0 0 4px rgba(123, 167, 193, 0.15),
+        0 4px 12px rgba(123, 167, 193, 0.2) !important;
+    background: rgba(255, 255, 255, 1) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Tables - Better readability */
+table {
+    font-size: 1.05rem !important;
+}
+
+th {
+    background-color: var(--nav-color) !important;
+    color: var(--text-light) !important;
+}
+
+tr:nth-child(even) {
+    background-color: rgba(249, 240, 237, 0.5) !important;
+}
+
+/* Lightbox and modals */
+.lightbox,
+.modal {
+    background-color: rgba(69, 87, 102, 0.95) !important;
+}
+
+/* Gallery and Cards - Modern Hover Effects */
+.gallery-item,
+.blog-card {
+    position: relative !important;
+    overflow: hidden !important;
+    border-radius: 16px !important;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+
+.gallery-item::before,
+.blog-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(123, 167, 193, 0.9), rgba(236, 154, 99, 0.9));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 1;
+}
+
+.gallery-item:hover::before,
+.blog-card:hover::before {
+    opacity: 0.15;
+}
+
+.gallery-item:hover,
+.blog-card:hover {
+    transform: translateY(-12px) scale(1.03) !important;
+    box-shadow: 
+        0 20px 60px rgba(0,0,0,0.2),
+        0 0 0 1px rgba(123, 167, 193, 0.3) !important;
+}
+
+/* Pagination */
+.pagination a {
+    background-color: var(--nav-color) !important;
+    color: var(--text-light) !important;
+}
+
+.pagination a:hover {
+    background-color: var(--hover-color) !important;
+}
+
+/* Status badges */
+.badge {
+    border-radius: 6px !important;
+    padding: 6px 12px !important;
+    font-weight: 600 !important;
+}
+
+/* Contact form */
+.contact-form {
+    background-color: #ffffff !important;
+    padding: 40px !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1) !important;
+}
+
+/* Responsive images */
+img {
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    * {
+        border-width: 2px !important;
+    }
+    
+    .btn {
+        border: 3px solid currentColor !important;
+    }
+}
+
+/* Print-friendly colors */
+@media print {
+    * {
+        background: white !important;
+        color: black !important;
+    }
+}
+
+/* White text on orange gradient backgrounds (benefits section) without affecting cards */
+/* Ensure headings/lead text directly on the orange gradient remain high-contrast */
+.benefits > h1,
+.benefits > h2,
+.benefits > h3,
+.benefits > h4,
+.benefits > p,
+.benefits > .container > h1,
+.benefits > .container > h2,
+.benefits > .container > h3,
+.benefits > .container > h4,
+.benefits > .container > p,
+/* common optional subtitle/intro classes if present */
+.benefits > .container > .subtitle,
+.benefits > .container > .section-intro,
+.benefits > .subtitle,
+.benefits > .section-intro {
+    color: #ffffff !important;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.25) !important;
+}
+
+/* Preserve dark readable text inside benefit cards (reassert specificity) */
+.benefit-card h3,
+.benefit-card p,
+.benefit-card a {
+    color: var(--text-dark) !important;
+}
+
+/* Contact page: make orange info panel readable (white text on orange) */
+.contact-info {
+    /* ensure it uses our brand orange gradient and readable text */
+    background: linear-gradient(135deg, var(--benefits-color), #f0a876) !important;
+    color: #ffffff !important;
+}
+
+.contact-info h1,
+.contact-info h2,
+.contact-info h3,
+.contact-info h4,
+.contact-info p,
+.contact-info a,
+.contact-info li,
+.contact-info span,
+.contact-info small,
+.contact-info strong,
+.contact-info em {
+    color: #ffffff !important;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.25) !important;
+}
+
+/* Contact page icons on orange panel: use solid white, remove gradient text treatment */
+.contact-info .fa,
+.contact-info .fas,
+.contact-info .far,
+.contact-info [class*="icon"] {
+    color: #ffffff !important;
+    background: none !important;
+    -webkit-text-fill-color: #ffffff !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.25)) !important;
+}
