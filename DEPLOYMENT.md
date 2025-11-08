@@ -51,6 +51,51 @@ php artisan storage:link
 
 ## Deployment Methods
 
+### Method 0: GitHub Actions (CI + SSH Deploy)
+
+This repository ships with two workflows in `.github/workflows/`:
+
+| File | Purpose |
+| ---- | ------- |
+| `ci.yml` | Run Composer install, spin up MySQL service, run migrations, tests, and build Vite assets on push/PR to `main`. |
+| `deploy.yml` | (Template) Deploy code to a Linux server over SSH + rsync when pushing to `main` or triggering manually. |
+
+GitHub Pages cannot run PHP, so deployment targets a real server (VPS, managed host, etc.). The workflow assumes you already configured a web server (see Method 2) and created a production `.env` on the server.
+
+#### Enable CI (already active)
+Nothing to do—`ci.yml` runs automatically on pushes/PRs to `main`.
+
+#### Enable Deploy Workflow
+1. Generate / choose an SSH key (no passphrase) dedicated for deploys: `ssh-keygen -t ed25519 -f deploy_key`.
+2. Add the public key to the server's `~/.ssh/authorized_keys` for the deploy user (e.g. `deploy`).
+3. Add repository Secrets (Settings → Secrets and variables → Actions):
+   - `SSH_HOST` (e.g. `your.server.com`)
+   - `SSH_USER` (e.g. `deploy`)
+   - `SSH_PRIVATE_KEY` (paste private key contents)
+   - `SSH_PATH` (absolute path, e.g. `/var/www/bina-adult-care-main`)
+4. Edit `deploy.yml` replacing all placeholder tokens `<SSH_HOST>`, `<SSH_USER>`, `<SSH_PRIVATE_KEY>`, `<SSH_PATH>` with `
+   `${{ secrets.SSH_HOST }}`, etc.
+5. Commit the change. On next push to `main` the workflow will:
+   - Checkout code
+   - Add SSH key & known host
+   - rsync files (excluding vendor/node_modules)
+   - Run production install & optimize commands remotely
+
+#### Optional Hardening
+Add a build stage to produce assets locally and upload only `public/build` to minimize server Node requirements. Example additional steps (before rsync):
+```yaml
+  - name: Build assets locally
+    run: |
+      npm ci
+      npm run build
+```
+Then remove on-server `npm ci && npm run build` from the remote command block.
+
+#### Zero-Downtime Idea
+Adopt release directories (e.g. `/var/www/app/releases/<timestamp>` + symlink `current`) and update the workflow to deploy into a new release folder, then atomically `ln -sfn`. Tools like Deployer or Laravel Envoy can formalize this later.
+
+---
+
 ### Method 1: Shared Hosting (cPanel)
 
 **Requirements:**

@@ -1,0 +1,65 @@
+name: Deploy
+
+# NOTE: This file uses placeholder tokens (<SSH_HOST>, etc.) so repository tooling
+# doesn't flag missing GitHub Secrets. BEFORE USING:
+# 1. Add repository secrets: SSH_HOST, SSH_USER, SSH_PRIVATE_KEY, SSH_PATH
+# 2. Replace the placeholder tokens below with ${{ secrets.SECRET_NAME }}
+# 3. (Optional) Add APP_ENV / other secrets as needed.
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Replace <SSH_PRIVATE_KEY> with ${{ secrets.SSH_PRIVATE_KEY }} once secret is added
+      - name: Start ssh-agent
+        run: |
+          echo "Adding SSH key"
+          mkdir -p ~/.ssh
+          echo "${SSH_PRIVATE_KEY}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          eval "$(ssh-agent -s)" >/dev/null 2>&1
+          ssh-add ~/.ssh/id_rsa
+        env:
+          SSH_PRIVATE_KEY: <SSH_PRIVATE_KEY>
+
+      - name: Add known host
+        run: |
+            ssh-keyscan -H "${SSH_HOST}" >> ~/.ssh/known_hosts
+        env:
+          SSH_HOST: <SSH_HOST>
+
+      - name: Rsync project to server
+        run: |
+          rsync -az --delete \
+            --exclude '.git/' \
+            --exclude 'node_modules/' \
+            --exclude 'vendor/' \
+            --exclude 'storage/framework/cache/data/*' \
+            --exclude '.github/' \
+            ./ ${SSH_USER}@${SSH_HOST}:${SSH_PATH}
+        env:
+          SSH_USER: <SSH_USER>
+          SSH_HOST: <SSH_HOST>
+          SSH_PATH: <SSH_PATH>
+
+      - name: Install & optimize on server
+        run: |
+          ssh ${SSH_USER}@${SSH_HOST} "cd ${SSH_PATH} && \
+            composer install --no-dev --prefer-dist --no-interaction && \
+            php artisan migrate --force && \
+            php artisan storage:link || true && \
+            php artisan optimize && \
+            if [ -f package.json ]; then npm ci && npm run build || true; fi"
+        env:
+          SSH_USER: <SSH_USER>
+          SSH_HOST: <SSH_HOST>
+          SSH_PATH: <SSH_PATH>
