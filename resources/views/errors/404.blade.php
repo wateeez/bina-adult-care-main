@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 - Page Not Found | Bina Adult Care</title>
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/color-theme.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .error-content {
@@ -137,10 +138,26 @@
     </style>
 </head>
 <body>
+    @php
+        $contents = \App\Models\Content::all()->keyBy('section');
+        $siteName = $contents['site_name']->value ?? 'Bina Adult Care';
+        $siteLogo = isset($contents['site_logo']->background_image) 
+            ? asset('storage/' . $contents['site_logo']->background_image) 
+            : null;
+    @endphp
+
+    @include('partials.announcement-bar')
+    @include('partials.announcement-popup')
+    
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="{{ route('home') }}" class="logo">Bina Adult Care</a>
+            <a href="{{ route('home') }}" class="logo" style="display: flex; align-items: center; gap: 0.5rem;">
+                @if($siteLogo)
+                    <img src="{{ $siteLogo }}" alt="{{ $siteName }}" style="height: 50px; max-width: 200px; object-fit: contain;">
+                @endif
+                <span>{{ $siteName }}</span>
+            </a>
             <div class="menu-toggle">
                 <i class="fas fa-bars"></i>
             </div>
@@ -148,6 +165,8 @@
                 <li><a href="{{ route('home') }}">Home</a></li>
                 <li><a href="{{ route('about') }}">About Us</a></li>
                 <li><a href="{{ route('services') }}">Services</a></li>
+                <li><a href="{{ route('gallery') }}">Gallery</a></li>
+                <li><a href="{{ route('blog.index') }}">Blog</a></li>
                 <li><a href="{{ route('contact') }}">Contact</a></li>
             </ul>
         </div>
