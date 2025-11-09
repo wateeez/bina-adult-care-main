@@ -23,6 +23,34 @@
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('css/color-theme.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    @include('partials.announcement-bar')
+    @include('partials.announcement-popup')
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{{ route('home') }}" class="logo" style="display: flex; align-items: center; gap: 0.5rem;">
+                @if(isset($siteLogo))
+                    <img src="{{ $siteLogo }}" alt="{{ $siteName ?? 'Bina Adult Care' }}" style="height: 50px; max-width: 200px; object-fit: contain;">
+                @endif
+                <span>{{ $siteName ?? 'Bina Adult Care' }}</span>
+            </a>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{{ route('home') }}">Home</a></li>
+                <li><a href="{{ route('about') }}">About Us</a></li>
+                <li><a href="{{ route('services') }}">Services</a></li>
+                <li><a href="{{ route('gallery') }}">Gallery</a></li>
+                <li><a href="{{ route('blog.index') }}">Blog</a></li>
+                <li><a href="{{ route('contact') }}" class="active">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
     <style>
         /* Additional styles for Contact page */
         .contact-section {

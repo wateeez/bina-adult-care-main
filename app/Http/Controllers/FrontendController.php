@@ -31,7 +31,11 @@ class FrontendController extends Controller
     public function contact()
     {
         $contents = \App\Models\Content::all()->keyBy('section');
-        return view('frontend.contact', compact('contents'));
+        $siteName = $contents['site_name']->value ?? 'Bina Adult Care';
+        $siteLogo = isset($contents['site_logo']->background_image) 
+            ? asset('storage/' . $contents['site_logo']->background_image) 
+            : null;
+        return view('frontend.contact', compact('contents', 'siteName', 'siteLogo'));
     }
 
     public function submitContact(Request $request)
