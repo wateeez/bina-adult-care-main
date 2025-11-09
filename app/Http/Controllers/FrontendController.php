@@ -10,31 +10,53 @@ class FrontendController extends Controller
 {
     public function index()
     {
-        $contents = \App\Models\Content::all()->keyBy('section');
-        $benefits = \App\Models\Benefit::orderBy('order')->get();
+        try {
+            $contents = \App\Models\Content::all()->keyBy('section');
+            $benefits = \App\Models\Benefit::orderBy('order')->get();
+        } catch (\Exception $e) {
+            $contents = collect();
+            $benefits = collect();
+        }
         return view('frontend.index', compact('contents', 'benefits'));
     }
 
     public function services()
     {
-        $services = Service::all();
-        $contents = \App\Models\Content::all()->keyBy('section');
+        try {
+            $services = Service::all();
+            $contents = \App\Models\Content::all()->keyBy('section');
+        } catch (\Exception $e) {
+            $services = collect();
+            $contents = collect();
+        }
         return view('frontend.services', compact('services', 'contents'));
     }
 
     public function about()
     {
-        $contents = \App\Models\Content::all()->keyBy('section');
+        try {
+            $contents = \App\Models\Content::all()->keyBy('section');
+        } catch (\Exception $e) {
+            $contents = collect();
+        }
         return view('frontend.about', compact('contents'));
     }
 
     public function contact()
     {
-        $contents = \App\Models\Content::all()->keyBy('section');
-        $siteName = $contents['site_name']->value ?? 'Bina Adult Care';
-        $siteLogo = isset($contents['site_logo']->background_image) 
-            ? asset('storage/' . $contents['site_logo']->background_image) 
-            : null;
+        try {
+            $contents = \App\Models\Content::all()->keyBy('section');
+            $siteName = $contents['site_name']->value ?? 'Bina Adult Care';
+            $siteLogo = isset($contents['site_logo']->background_image) 
+                ? asset('storage/' . $contents['site_logo']->background_image) 
+                : null;
+        } catch (\Exception $e) {
+            // Fallback to defaults if database query fails
+            $contents = collect();
+            $siteName = 'Bina Adult Care';
+            $siteLogo = null;
+        }
+        
         return view('frontend.contact', compact('contents', 'siteName', 'siteLogo'));
     }
 
