@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "public/index.php",
+      "use": "vercel-php@0.7.0"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "public/index.php"
+    }
+  ],
+  "env": {
+    "APP_ENV": "production",
+    "APP_DEBUG": "false",
+    "APP_KEY": "base64:nXErnAyRgKbGVsSKMydSoGT5FBTr+4LIsG6uyOUS0zQ=",
+    "APP_URL": "https://your-app.vercel.app"
+  },
+  "functions": {
+    "public/index.php": {
+      "runtime": "vercel-php@0.7.0"
+    }
+  }
+}
