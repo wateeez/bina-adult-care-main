@@ -8,6 +8,23 @@ use App\Models\Contact;
 
 class FrontendController extends Controller
 {
+    protected function getAnnouncementData()
+    {
+        try {
+            $activeBar = \App\Models\Announcement::where('is_active', true)
+                ->where('type', 'bar')
+                ->first();
+            $activePopup = \App\Models\Announcement::where('is_active', true)
+                ->where('type', 'popup')
+                ->first();
+        } catch (\Exception $e) {
+            $activeBar = null;
+            $activePopup = null;
+        }
+        
+        return compact('activeBar', 'activePopup');
+    }
+    
     public function index()
     {
         try {
@@ -17,7 +34,9 @@ class FrontendController extends Controller
             $contents = collect();
             $benefits = collect();
         }
-        return view('frontend.index', compact('contents', 'benefits'));
+        
+        $announcements = $this->getAnnouncementData();
+        return view('frontend.index', array_merge(compact('contents', 'benefits'), $announcements));
     }
 
     public function services()
@@ -29,7 +48,9 @@ class FrontendController extends Controller
             $services = collect();
             $contents = collect();
         }
-        return view('frontend.services', compact('services', 'contents'));
+        
+        $announcements = $this->getAnnouncementData();
+        return view('frontend.services', array_merge(compact('services', 'contents'), $announcements));
     }
 
     public function about()
@@ -39,7 +60,9 @@ class FrontendController extends Controller
         } catch (\Exception $e) {
             $contents = collect();
         }
-        return view('frontend.about', compact('contents'));
+        
+        $announcements = $this->getAnnouncementData();
+        return view('frontend.about', array_merge(compact('contents'), $announcements));
     }
 
     public function contact()
@@ -57,7 +80,8 @@ class FrontendController extends Controller
             $siteLogo = null;
         }
         
-        return view('frontend.contact', compact('contents', 'siteName', 'siteLogo'));
+        $announcements = $this->getAnnouncementData();
+        return view('frontend.contact', array_merge(compact('contents', 'siteName', 'siteLogo'), $announcements));
     }
 
     public function submitContact(Request $request)
