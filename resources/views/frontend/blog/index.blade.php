@@ -338,7 +338,7 @@
                 <li><a href="/services.php">Services</a></li>
                 <li><a href="/gallery">Gallery</a></li>
                 <li><a href="/blog" style="color: #F5E6D3;">Blog</a></li>
-                <li><a href="/contact.php">Contact</a></li>
+                <li><a href="{{ route('contact') }}">Contact</a></li>
             </ul>
         </div>
     </nav>
