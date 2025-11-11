@@ -12,6 +12,22 @@ class ContentSeeder extends Seeder
         $contents = [
             // Home page content
             [
+                'section' => 'home_hero_title',
+                'content' => 'Owned, Operated, and Managed by Caregivers.',
+            ],
+            [
+                'section' => 'home_hero_subtitle',
+                'content' => 'We look after your best interests, with a profound understanding of the challenges caregivers face firsthand.',
+            ],
+            [
+                'section' => 'home_program_title',
+                'content' => 'Bina Adult Care: The Human Service and Home Health Workers Loan Repayment Program',
+            ],
+            [
+                'section' => 'home_program_text',
+                'content' => 'Our employees are eligible through the Bina Adult care Program.',
+            ],
+            [
                 'section' => 'home_hero',
                 'content' => 'Owned, Operated, and Managed by Caregivers. We look after your best interests, with a profound understanding of the challenges caregivers face firsthand.',
             ],
@@ -30,14 +46,52 @@ class ContentSeeder extends Seeder
                 'content' => 'We Understand Caregiving — Because We\'ve Lived It.',
             ],
             [
+                'section' => 'about_story_title',
+                'content' => 'Our Story',
+            ],
+            [
                 'section' => 'about_story',
                 'content' => 'As an organization founded and operated by individuals who have walked in your shoes, we intimately comprehend the intricate demands and emotional toll that caregiving can encompass. Our mission is to support, empower, and uplift caregivers with meaningful opportunities and compassionate understanding.',
+            ],
+            [
+                'section' => 'about_mission_title',
+                'content' => 'Our Mission',
             ],
             [
                 'section' => 'about_mission',
                 'content' => 'To provide exceptional care services while creating meaningful career opportunities for passionate caregivers, fostering a community where both care recipients and caregivers thrive.',
             ],
 
+            // Services page content
+            [
+                'section' => 'services_hero',
+                'content' => 'Our Services',
+            ],
+            [
+                'section' => 'services_subtitle',
+                'content' => 'Comprehensive care solutions tailored to your needs',
+            ],
+
+            // Gallery page content
+            [
+                'section' => 'gallery_hero',
+                'content' => 'Photo Gallery',
+            ],
+            [
+                'section' => 'gallery_subtitle',
+                'content' => 'Explore our collection of memorable moments',
+            ],
+
+            // Contact page content
+            [
+                'section' => 'contact_hero',
+                'content' => 'Get in Touch',
+            ],
+            [
+                'section' => 'contact_subtitle',
+                'content' => 'We\'re here to answer your questions and discuss your care needs.',
+            ],
+            
             // Contact information
             [
                 'section' => 'contact_address',

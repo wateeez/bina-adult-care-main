@@ -275,12 +275,12 @@
                 <i class="fas fa-bars"></i>
             </button>
             <ul id="navMenu">
-                <li><a href="/">Home</a></li>
-                <li><a href="/about.php">About</a></li>
-                <li><a href="/services.php">Services</a></li>
-                <li><a href="/gallery" style="color: #F5E6D3;">Gallery</a></li>
-                <li><a href="/blog">Blog</a></li>
-                <li><a href="/contact.php">Contact</a></li>
+                <li><a href="<?php echo e(route('home')); ?>">Home</a></li>
+                <li><a href="<?php echo e(route('about')); ?>">About</a></li>
+                <li><a href="<?php echo e(route('services')); ?>">Services</a></li>
+                <li><a href="<?php echo e(route('gallery')); ?>" style="color: #F5E6D3;">Gallery</a></li>
+                <li><a href="<?php echo e(route('blog.index')); ?>">Blog</a></li>
+                <li><a href="<?php echo e(route('contact')); ?>">Contact</a></li>
             </ul>
         </div>
     </nav>
@@ -288,8 +288,8 @@
     <!-- Page Header -->
     <div class="page-header">
         <div class="container">
-            <h1><i class="fas fa-images me-3"></i>Photo Gallery</h1>
-            <p>Explore our collection of memorable moments</p>
+            <h1><i class="fas fa-images me-3"></i><?php echo e($contents['gallery_hero']->content ?? 'Photo Gallery'); ?></h1>
+            <p><?php echo e($contents['gallery_subtitle']->content ?? 'Explore our collection of memorable moments'); ?></p>
         </div>
     </div>
 

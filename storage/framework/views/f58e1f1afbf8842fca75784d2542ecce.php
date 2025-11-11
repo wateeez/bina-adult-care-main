@@ -63,8 +63,8 @@
     <!-- Hero Section -->
     <section class="hero" <?php if(isset($contents['home_hero']) && $contents['home_hero']->background_image): ?> style="background-image: url('<?php echo e(asset('storage/' . $contents['home_hero']->background_image)); ?>');" <?php endif; ?>>
         <div class="hero-content">
-            <h1>Owned, Operated, and Managed by Caregivers.</h1>
-            <p>We look after your best interests, with a profound understanding of the challenges caregivers face firsthand.</p>
+            <h1><?php echo e($contents['home_hero_title']->content ?? 'Owned, Operated, and Managed by Caregivers.'); ?></h1>
+            <p><?php echo e($contents['home_hero_subtitle']->content ?? 'We look after your best interests, with a profound understanding of the challenges caregivers face firsthand.'); ?></p>
             <div class="hero-buttons">
                 <a href="<?php echo e(route('contact')); ?>" class="btn primary">Join Our Team</a>
                 <a href="<?php echo e(route('about')); ?>" class="btn secondary">Learn More</a>
@@ -75,8 +75,8 @@
     <!-- Program Section -->
     <section class="program">
         <div class="container">
-            <h2>Bina Adult Care: The Human Service and Home Health Workers Loan Repayment Program</h2>
-            <p>Our employees are eligible through the Bina Adult care Program.</p>
+            <h2><?php echo e($contents['home_program_title']->content ?? 'Bina Adult Care: The Human Service and Home Health Workers Loan Repayment Program'); ?></h2>
+            <p><?php echo e($contents['home_program_text']->content ?? 'Our employees are eligible through the Bina Adult care Program.'); ?></p>
         </div>
     </section>
 
@@ -224,8 +224,8 @@
                 </div>
                 <div class="footer-section">
                     <h3>Contact Us</h3>
-                    <p>Email: info@binaadultcare.com</p>
-                    <p>Phone: (555) 123-4567</p>
+                    <p>Email: <?php echo e($contents['contact_email']->content ?? 'info@binaadultcare.com'); ?></p>
+                    <p>Phone: <?php echo e($contents['contact_phone']->content ?? '(555) 123-4567'); ?></p>
                 </div>
             </div>
             <div class="footer-bottom">

@@ -14,6 +14,12 @@ class GalleryPageController extends Controller
     {
         $images = Gallery::getActiveImages();
         
-        return view('frontend.gallery', compact('images'));
+        try {
+            $contents = \App\Models\Content::all()->keyBy('section');
+        } catch (\Exception $e) {
+            $contents = collect();
+        }
+        
+        return view('frontend.gallery', compact('images', 'contents'));
     }
 }

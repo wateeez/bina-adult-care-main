@@ -23,6 +23,34 @@
     <link rel="stylesheet" href="<?php echo e(asset('css/styles.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('css/color-theme.css')); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <?php echo $__env->make('partials.announcement-bar', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+    <?php echo $__env->make('partials.announcement-popup', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="<?php echo e(route('home')); ?>" class="logo" style="display: flex; align-items: center; gap: 0.5rem;">
+                <?php if(isset($siteLogo)): ?>
+                    <img src="<?php echo e($siteLogo); ?>" alt="<?php echo e($siteName ?? 'Bina Adult Care'); ?>" style="height: 50px; max-width: 200px; object-fit: contain;">
+                <?php endif; ?>
+                <span><?php echo e($siteName ?? 'Bina Adult Care'); ?></span>
+            </a>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="<?php echo e(route('home')); ?>">Home</a></li>
+                <li><a href="<?php echo e(route('about')); ?>">About Us</a></li>
+                <li><a href="<?php echo e(route('services')); ?>">Services</a></li>
+                <li><a href="<?php echo e(route('gallery')); ?>">Gallery</a></li>
+                <li><a href="<?php echo e(route('blog.index')); ?>">Blog</a></li>
+                <li><a href="<?php echo e(route('contact')); ?>" class="active">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
     <style>
         /* Additional styles for Contact page */
         .contact-section {
@@ -142,8 +170,8 @@
     <!-- Contact Section -->
     <section class="contact-section">
         <div class="container">
-            <h1>Get in Touch</h1>
-            <p>We're here to answer your questions and discuss your care needs.</p>
+            <h1><?php echo e($contents['contact_hero']->content ?? 'Get in Touch'); ?></h1>
+            <p><?php echo e($contents['contact_subtitle']->content ?? 'We\'re here to answer your questions and discuss your care needs.'); ?></p>
             
             <div class="contact-grid">
                 <div class="contact-form">
@@ -194,30 +222,28 @@
                         <i class="fas fa-map-marker-alt"></i>
                         <div>
                             <h3>Address</h3>
-                            <p>123 Care Street, Suite 100<br>City, State 12345</p>
+                            <p><?php echo nl2br(e($contents['contact_address']->content ?? '123 Care Street, Suite 100<br>City, State 12345')); ?></p>
                         </div>
                     </div>
                     <div class="contact-info-item">
                         <i class="fas fa-phone"></i>
                         <div>
                             <h3>Phone</h3>
-                            <p>(555) 123-4567</p>
+                            <p><?php echo e($contents['contact_phone']->content ?? '(555) 123-4567'); ?></p>
                         </div>
                     </div>
                     <div class="contact-info-item">
                         <i class="fas fa-envelope"></i>
                         <div>
                             <h3>Email</h3>
-                            <p>info@binaadultcare.com</p>
+                            <p><?php echo e($contents['contact_email']->content ?? 'info@binaadultcare.com'); ?></p>
                         </div>
                     </div>
                     <div class="contact-info-item">
                         <i class="fas fa-clock"></i>
                         <div>
                             <h3>Hours</h3>
-                            <p>Monday - Friday: 9:00 AM - 6:00 PM<br>
-                               Saturday: 10:00 AM - 4:00 PM<br>
-                               Sunday: Closed</p>
+                            <p><?php echo nl2br(e($contents['contact_hours']->content ?? 'Monday - Friday: 9:00 AM - 6:00 PM<br>Saturday: 10:00 AM - 4:00 PM<br>Sunday: Closed')); ?></p>
                         </div>
                     </div>
                 </div>
@@ -256,8 +282,8 @@
                 </div>
                 <div class="footer-section">
                     <h3>Contact Us</h3>
-                    <p>Email: info@binaadultcare.com</p>
-                    <p>Phone: (555) 123-4567</p>
+                    <p>Email: <?php echo e($contents['contact_email']->content ?? 'info@binaadultcare.com'); ?></p>
+                    <p>Phone: <?php echo e($contents['contact_phone']->content ?? '(555) 123-4567'); ?></p>
                 </div>
             </div>
             <div class="footer-bottom">

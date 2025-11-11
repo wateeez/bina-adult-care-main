@@ -333,11 +333,11 @@
                 <i class="fas fa-bars"></i>
             </button>
             <ul id="navMenu">
-                <li><a href="/">Home</a></li>
-                <li><a href="/about.php">About</a></li>
-                <li><a href="/services.php">Services</a></li>
-                <li><a href="/gallery">Gallery</a></li>
-                <li><a href="/blog" style="color: #F5E6D3;">Blog</a></li>
+                <li><a href="{{ route('home') }}">Home</a></li>
+                <li><a href="{{ route('about') }}">About</a></li>
+                <li><a href="{{ route('services') }}">Services</a></li>
+                <li><a href="{{ route('gallery') }}">Gallery</a></li>
+                <li><a href="{{ route('blog.index') }}" style="color: #F5E6D3;">Blog</a></li>
                 <li><a href="{{ route('contact') }}">Contact</a></li>
             </ul>
         </div>

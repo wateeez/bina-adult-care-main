@@ -170,8 +170,8 @@
     <!-- Contact Section -->
     <section class="contact-section">
         <div class="container">
-            <h1>Get in Touch</h1>
-            <p>We're here to answer your questions and discuss your care needs.</p>
+            <h1>{{ $contents['contact_hero']->content ?? 'Get in Touch' }}</h1>
+            <p>{{ $contents['contact_subtitle']->content ?? 'We\'re here to answer your questions and discuss your care needs.' }}</p>
             
             <div class="contact-grid">
                 <div class="contact-form">
@@ -221,30 +221,28 @@
                         <i class="fas fa-map-marker-alt"></i>
                         <div>
                             <h3>Address</h3>
-                            <p>123 Care Street, Suite 100<br>City, State 12345</p>
+                            <p>{!! nl2br(e($contents['contact_address']->content ?? '123 Care Street, Suite 100<br>City, State 12345')) !!}</p>
                         </div>
                     </div>
                     <div class="contact-info-item">
                         <i class="fas fa-phone"></i>
                         <div>
                             <h3>Phone</h3>
-                            <p>(555) 123-4567</p>
+                            <p>{{ $contents['contact_phone']->content ?? '(555) 123-4567' }}</p>
                         </div>
                     </div>
                     <div class="contact-info-item">
                         <i class="fas fa-envelope"></i>
                         <div>
                             <h3>Email</h3>
-                            <p>info@binaadultcare.com</p>
+                            <p>{{ $contents['contact_email']->content ?? 'info@binaadultcare.com' }}</p>
                         </div>
                     </div>
                     <div class="contact-info-item">
                         <i class="fas fa-clock"></i>
                         <div>
                             <h3>Hours</h3>
-                            <p>Monday - Friday: 9:00 AM - 6:00 PM<br>
-                               Saturday: 10:00 AM - 4:00 PM<br>
-                               Sunday: Closed</p>
+                            <p>{!! nl2br(e($contents['contact_hours']->content ?? 'Monday - Friday: 9:00 AM - 6:00 PM<br>Saturday: 10:00 AM - 4:00 PM<br>Sunday: Closed')) !!}</p>
                         </div>
                     </div>
                 </div>
@@ -283,8 +281,8 @@
                 </div>
                 <div class="footer-section">
                     <h3>Contact Us</h3>
-                    <p>Email: info@binaadultcare.com</p>
-                    <p>Phone: (555) 123-4567</p>
+                    <p>Email: {{ $contents['contact_email']->content ?? 'info@binaadultcare.com' }}</p>
+                    <p>Phone: {{ $contents['contact_phone']->content ?? '(555) 123-4567' }}</p>
                 </div>
             </div>
             <div class="footer-bottom">

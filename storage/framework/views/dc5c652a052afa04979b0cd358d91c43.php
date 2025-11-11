@@ -89,7 +89,7 @@
     <!-- About Hero Section -->
     <section class="about-hero" <?php if(isset($contents['about_hero']) && $contents['about_hero']->background_image): ?> style="background-image: linear-gradient(rgba(74, 144, 226, 0.1), rgba(74, 144, 226, 0.1)), url('<?php echo e(asset('storage/' . $contents['about_hero']->background_image)); ?>'); background-size: cover; background-position: center;" <?php endif; ?>>
         <div class="hero-content">
-            <h1>We Understand Caregiving — Because We've Lived It.</h1>
+            <h1><?php echo e($contents['about_hero']->content ?? 'We Understand Caregiving — Because We\'ve Lived It.'); ?></h1>
         </div>
     </section>
 
@@ -97,13 +97,13 @@
     <div class="about-content">
         <div class="container">
             <div class="about-section">
-                <h2>Our Story</h2>
-                <p>As an organization founded and operated by individuals who have walked in your shoes, we intimately comprehend the intricate demands and emotional toll that caregiving can encompass. Our mission is to support, empower, and uplift caregivers with meaningful opportunities and compassionate understanding.</p>
+                <h2><?php echo e($contents['about_story_title']->content ?? 'Our Story'); ?></h2>
+                <p><?php echo e($contents['about_story']->content ?? 'As an organization founded and operated by individuals who have walked in your shoes, we intimately comprehend the intricate demands and emotional toll that caregiving can encompass. Our mission is to support, empower, and uplift caregivers with meaningful opportunities and compassionate understanding.'); ?></p>
             </div>
 
             <div class="about-section">
-                <h2>Our Mission</h2>
-                <p>To provide exceptional care services while creating meaningful career opportunities for passionate caregivers, fostering a community where both care recipients and caregivers thrive.</p>
+                <h2><?php echo e($contents['about_mission_title']->content ?? 'Our Mission'); ?></h2>
+                <p><?php echo e($contents['about_mission']->content ?? 'To provide exceptional care services while creating meaningful career opportunities for passionate caregivers, fostering a community where both care recipients and caregivers thrive.'); ?></p>
             </div>
 
             <div class="about-section">
@@ -149,8 +149,8 @@
                 </div>
                 <div class="footer-section">
                     <h3>Contact Us</h3>
-                    <p>Email: info@binaadultcare.com</p>
-                    <p>Phone: (555) 123-4567</p>
+                    <p>Email: <?php echo e($contents['contact_email']->content ?? 'info@binaadultcare.com'); ?></p>
+                    <p>Phone: <?php echo e($contents['contact_phone']->content ?? '(555) 123-4567'); ?></p>
                 </div>
             </div>
             <div class="footer-bottom">

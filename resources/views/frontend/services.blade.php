@@ -107,8 +107,8 @@
     <!-- Services Hero Section -->
     <section class="services-hero" @if(isset($contents['services_intro']) && $contents['services_intro']->background_image) style="background-image: linear-gradient(rgba(74, 144, 226, 0.1), rgba(74, 144, 226, 0.1)), url('{{ asset('storage/' . $contents['services_intro']->background_image) }}'); background-size: cover; background-position: center;" @endif>
         <div class="hero-content">
-            <h1>Our Services</h1>
-            <p>Comprehensive care solutions tailored to your needs</p>
+            <h1>{{ $contents['services_hero']->content ?? 'Our Services' }}</h1>
+            <p>{{ $contents['services_subtitle']->content ?? 'Comprehensive care solutions tailored to your needs' }}</p>
         </div>
     </section>
 
@@ -152,8 +152,8 @@
                 </div>
                 <div class="footer-section">
                     <h3>Contact Us</h3>
-                    <p>Email: info@binaadultcare.com</p>
-                    <p>Phone: (555) 123-4567</p>
+                    <p>Email: {{ $contents['contact_email']->content ?? 'info@binaadultcare.com' }}</p>
+                    <p>Phone: {{ $contents['contact_phone']->content ?? '(555) 123-4567' }}</p>
                 </div>
             </div>
             <div class="footer-bottom">
